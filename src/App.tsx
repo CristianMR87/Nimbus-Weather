@@ -137,7 +137,7 @@ const App: React.FC = () => {
     };
     
     return (
-        <div className="App p-5 mt-5 mx-96 table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#4b6d8c] via-[#367962] to-[#298a46] shadow-xl relative">
+        <div className="App p-5 mt-5 mx-96 table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#66a8bd] via-[#367962] to-[#298a46] shadow-xl relative">
             {/* Botón de ubicación en la esquina superior izquierda */}
             <button
                 onClick={handleCurrentLocation}
