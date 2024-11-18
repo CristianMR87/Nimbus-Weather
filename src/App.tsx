@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface Forecast {
     date: string;
@@ -44,6 +44,27 @@ const App: React.FC = () => {
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
     const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
+    const [currentDateTime, setCurrentDateTime] = useState<string>('');
+
+    // Función para obtener y actualizar la fecha y hora actuales
+    useEffect(() => {
+        const updateDateTime = () => {
+            const now = new Date();
+            const formattedDateTime = now.toLocaleString('es-ES', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+            });
+            setCurrentDateTime(formattedDateTime);
+        };
+
+        updateDateTime();
+        const interval = setInterval(updateDateTime, 60000); // Actualiza cada minuto
+        return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+    }, []);
 
     const handleSearch = async () => {
         setLoading(true);
@@ -94,7 +115,11 @@ const App: React.FC = () => {
 
             {weatherData && (
                 <div className="mt-4">
-                    <h2 className="text-2xl font-semibold">{weatherData.city}</h2>
+                    {/* Nombre de la ciudad y fecha/hora */}
+                    <div className="flex flex-col items-start">
+                        <h2 className="text-2xl font-semibold">{weatherData.city}</h2>
+                        <p className="text-gray-600">{currentDateTime}</p>
+                    </div>
 
                     {/* Clima Actual */}
                     <div className="mt-4">
@@ -134,7 +159,6 @@ const App: React.FC = () => {
                                     <th className="border p-2">Hora</th>
                                     <th className="border p-2">Temperatura</th>
                                     <th className="border p-2">Descripción</th>
-                                    <th className="border p-2">Icono</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -143,28 +167,22 @@ const App: React.FC = () => {
                                         <td className="border p-2">{hour.time}</td>
                                         <td className="border p-2">{hour.temperature}°C</td>
                                         <td className="border p-2">{hour.description}</td>
-                                        <td className="border p-2">
-                                            <img
-                                                src={`http://openweathermap.org/img/wn/${hour.icon}@2x.png`}
-                                                alt={hour.description}
-                                                className="h-10 w-10"
-                                            />
-                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
 
-                    {/* Predicción extendida */}
+                    {/* Predicción para los próximos 5 días */}
                     <div className="mt-4">
-                        <h3 className="text-xl font-semibold">Predicción para los próximos 5 días</h3>
+                        <h3 className="text-xl font-semibold">Predicción de los Próximos 5 Días</h3>
                         <table className="table-auto w-full mt-2 border-collapse border border-gray-200">
                             <thead>
                                 <tr>
                                     <th className="border p-2">Fecha</th>
-                                    <th className="border p-2">Máx. Temp</th>
-                                    <th className="border p-2">Mín. Temp</th>
+                                    <th className="border p-2">Máxima</th>
+                                    <th className="border p-2">Mínima</th>
+                                    <th className="border p-2">Descripción</th>
                                     <th className="border p-2">Icono</th>
                                 </tr>
                             </thead>
@@ -174,11 +192,11 @@ const App: React.FC = () => {
                                         <td className="border p-2">{day.date}</td>
                                         <td className="border p-2">{day.temperature_max}°C</td>
                                         <td className="border p-2">{day.temperature_min}°C</td>
+                                        <td className="border p-2">{day.description}</td>
                                         <td className="border p-2">
                                             <img
                                                 src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`}
                                                 alt={day.description}
-                                                className="h-10 w-10"
                                             />
                                         </td>
                                     </tr>
