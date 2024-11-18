@@ -299,9 +299,9 @@ const App: React.FC = () => {
 
                         {/* Pronóstico de los próximos 5 días */}
                         <h3 className="text-xl font-bold">Next 5 Days Forecast</h3>
-                        <div className="h-full flex gap-4 mt-4">
+                        <div className="min-w-[700px] max-w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-4">
                             {weatherData.daily_forecast.map((day, index) => (
-                                <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-1/5 p-4 text-center">
+                                <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 text-center">
                                     <p className="font-bold">
                                         {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
                                     </p>
