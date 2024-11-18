@@ -195,7 +195,7 @@ const App: React.FC = () => {
                         <div className="flex gap-4 mb-4">
                             <div className="flex flex-col w-1/2 h-[300px]">
                                 <h3 className="text-xl font-bold mt-4">Current Weather</h3>
-                                <div className="mt-4 bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl p-4 flex items-center justify-between h-full">
+                                <div className="mt-4 bg-gradient-to-b from-[#50626d] via-[#5f918a] to-[#136e2a] shadow-xl rounded-xl p-4 flex items-center justify-between h-full">
                                     {/* Columna izquierda: Sunrise y Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
                                         <div className="flex items-center gap-2">
