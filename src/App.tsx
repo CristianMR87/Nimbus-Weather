@@ -135,7 +135,7 @@ const App: React.FC = () => {
             setError('Geolocation is not supported in this browser.');
         }
     };
-
+    
     return (
         <div className="App p-5 mt-5 mx-96 table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#4b6d8c] via-[#6f8fa6] to-[#b0c5d1] shadow-xl relative">
             {/* Botón de ubicación en la esquina superior izquierda */}
@@ -304,7 +304,9 @@ const App: React.FC = () => {
                         <div className="flex gap-4 mt-4">
                             {weatherData.daily_forecast.map((day, index) => (
                                 <div key={index} className="bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl w-1/5 p-4 text-center">
-                                    <p className="font-bold">{day.date}</p>
+                                    <p className="font-bold">
+                                        {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
+                                    </p>
                                     <img
                                         src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`}
                                         alt={day.description}
