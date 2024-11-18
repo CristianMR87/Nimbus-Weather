@@ -7,6 +7,7 @@ interface Forecast {
     temperature: number;
     description: string;
     icon: string;
+    rain_probability: number;  // Nueva propiedad
 }
 
 interface HourlyForecast {
@@ -14,6 +15,7 @@ interface HourlyForecast {
     temperature: number;
     description: string;
     icon: string;
+    rain_probability: number;  // Nueva propiedad
 }
 
 interface DailyForecast {
@@ -22,6 +24,7 @@ interface DailyForecast {
     temperature_min: number;
     icon: string;
     description: string;
+    rain_probability: number;  // Nueva propiedad
 }
 
 interface CurrentWeather {
@@ -31,6 +34,7 @@ interface CurrentWeather {
     wind_speed: number;
     humidity: number;
     icon: string;
+    rain_probability: number;  // Nueva propiedad
 }
 
 interface WeatherData {
@@ -47,9 +51,9 @@ const App: React.FC = () => {
     const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [currentDateTime, setCurrentDateTime] = useState<string>('');
-    const [searched, setSearched] = useState<boolean>(false); // State to track if search was performed
+    const [searched, setSearched] = useState<boolean>(false); // Estado para verificar si se realizó la búsqueda
 
-    // Function to get and update current date and time
+    // Función para actualizar la fecha y hora actual
     useEffect(() => {
         const updateDateTime = () => {
             const now = new Date();
@@ -65,14 +69,14 @@ const App: React.FC = () => {
         };
 
         updateDateTime();
-        const interval = setInterval(updateDateTime, 60000); // Update every minute
-        return () => clearInterval(interval); // Clean up the interval when component is unmounted
+        const interval = setInterval(updateDateTime, 60000); // Actualizar cada minuto
+        return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonte
     }, []);
 
     const handleSearch = async () => {
         setLoading(true);
         setError('');
-        setSearched(true); // Mark as search performed
+        setSearched(true); // Marcar como búsqueda realizada
         try {
             const response = await fetch(`http://localhost:5000/weather/${city}`);
             if (response.ok) {
@@ -96,7 +100,7 @@ const App: React.FC = () => {
         }
     };
 
-    // Function to handle geolocation
+    // Función para obtener la ubicación actual
     const handleCurrentLocation = async () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -104,7 +108,7 @@ const App: React.FC = () => {
                     const { latitude, longitude } = position.coords;
                     setLoading(true);
                     setError('');
-                    setSearched(true); // Mark as search performed
+                    setSearched(true); // Marcar como búsqueda realizada
                     try {
                         const response = await fetch(
                             `http://localhost:5000/weather?lat=${latitude}&lon=${longitude}`
@@ -134,7 +138,7 @@ const App: React.FC = () => {
 
     return (
         <div className="App p-5 mt-5 mx-96 table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#4b6d8c] via-[#6f8fa6] to-[#b0c5d1] shadow-xl relative">
-            {/* Location button in the top left corner */}
+            {/* Botón de ubicación en la esquina superior izquierda */}
             <button
                 onClick={handleCurrentLocation}
                 className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl absolute top-4 left-4"
@@ -144,8 +148,8 @@ const App: React.FC = () => {
             </button>
 
             <div className="flex justify-center items-center mb-4">
-                <div className="flex w-full max-w-md gap-4"> {/* Added gap for separation */}
-                    {/* Search input unchanged */}
+                <div className="flex w-full max-w-md gap-4"> {/* Añadido gap para separación */}
+                    {/* Input de búsqueda sin cambios */}
                     <div className="relative w-full">
                         <input
                             type="text"
@@ -170,7 +174,7 @@ const App: React.FC = () => {
                 </div>
             </div>
 
-            {/* Display message if city is empty and search not performed */}
+            {/* Mensaje si la ciudad está vacía y no se ha realizado la búsqueda */}
             {!searched && city === '' && !loading && (
                 <div className="text-center">
                     <p className="text-black mt-4 text-center text-2xl font-bold">Welcome to Nimus Weather!</p>
@@ -186,22 +190,19 @@ const App: React.FC = () => {
 
             {weatherData && (
                 <div className="mt-4">
-                    {/* Current weather prediction and next 5 days forecast container */}
                     <div className="flex flex-col gap-4">
-                        {/* Current prediction */}
+                        {/* Clima actual */}
                         <div className="flex gap-4 mb-4">
-                            {/* Container for current day's weather prediction */}
                             <div className="flex flex-col w-1/2 h-[300px]">
                                 <h3 className="text-xl font-bold mt-4">Current Weather</h3>
                                 <div className="mt-4 bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl p-4 flex items-center justify-between h-full">
-                                    
-                                    {/* Left column: Sunrise and Sunset */}
+                                    {/* Columna izquierda: Sunrise y Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
-                                        <p className="text-lg">🌅 Sunrise: {weatherData.current_weather.sunrise}</p>
-                                        <p className="text-lg">🌇 Sunset: {weatherData.current_weather.sunset}</p>
+                                        <p className="text-lg font-bold">🌅 Sunrise: {weatherData.current_weather.sunrise}</p>
+                                        <p className="text-lg font-bold">🌇 Sunset: {weatherData.current_weather.sunset}</p>
                                     </div>
 
-                                    {/* Center column: Temperature and icon */}
+                                    {/* Columna central: Temperatura, icono*/}
                                     <div className="flex flex-col justify-center items-center w-1/3">
                                         <p className="text-4xl font-bold">{weatherData.current_weather.temperature}°C</p>
                                         <img
@@ -211,15 +212,16 @@ const App: React.FC = () => {
                                         />
                                     </div>
 
-                                    {/* Right column: Wind and Humidity */}
+                                    {/* Columna derecha: Wind y Humidity */}
                                     <div className="flex flex-col items-end w-1/3">
-                                        <p className="text-lg">💨 Wind: {weatherData.current_weather.wind_speed} m/s</p>
-                                        <p className="text-lg">💧 Humidity: {weatherData.current_weather.humidity}%</p>
+                                        <p className="text-lg font-bold">💨 Wind: {(weatherData.current_weather.wind_speed * 3.6).toFixed(1)} km/h</p>
+                                        <p className="text-lg font-bold">💧 Humidity: {weatherData.current_weather.humidity}%</p>
+                                        <p className="text-lg font-bold">🌧️ {weatherData.current_weather.rain_probability}%</p>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Hourly Forecast */}
+                            {/* Pronóstico horario */}
                             <div className="w-1/2 h-[300px]">
                                 <h3 className="text-xl font-bold">Hourly Forecast</h3>
                                 <div className="h-full flex">
@@ -229,14 +231,12 @@ const App: React.FC = () => {
                                                 <th className="border p-2">Hour</th>
                                                 <th className="border p-2">Temperature</th>
                                                 <th className="border p-2">Description</th>
+                                                <th className="border p-2 ">🌧️</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {weatherData.hourly_forecast.map((hour, index) => {
-                                                // Crear un objeto Date a partir de la cadena de hora (suponiendo que hour.time es una cadena válida)
                                                 const hourDate = new Date(hour.time);
-
-                                                // Formatear la hora para que solo se muestren las horas y los minutos
                                                 const formattedTime = hourDate.toLocaleTimeString([], {
                                                     hour: '2-digit',
                                                     minute: '2-digit'
@@ -254,6 +254,7 @@ const App: React.FC = () => {
                                                             />
                                                             {hour.description}
                                                         </td>
+                                                        <td className="border p-2 text-center font-bold">{hour.rain_probability}%</td>
                                                     </tr>
                                                 );
                                             })}
@@ -263,7 +264,7 @@ const App: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Next 5 days Forecast */}
+                        {/* Pronóstico de los próximos 5 días */}
                         <h3 className="text-xl font-bold">Next 5 Days Forecast</h3>
                         <div className="flex gap-4 mt-4">
                             {weatherData.daily_forecast.map((day, index) => (
@@ -276,6 +277,7 @@ const App: React.FC = () => {
                                     />
                                     <p className="font-bold">{day.temperature_max}°C / {day.temperature_min}°C</p>
                                     <p>{day.description}</p>
+                                    <p className="font-bold">🌧️: {day.rain_probability}%</p>
                                 </div>
                             ))}
                         </div>

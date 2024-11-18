@@ -9,6 +9,10 @@ CORS(app)
 # Clave API de OpenWeather
 api_key = '70529b5640e2a185b9885cb8b938002a'
 
+def convert_wind_speed_to_kmh(wind_speed_mps):
+    """Convierte la velocidad del viento de m/s a km/h."""
+    return round(wind_speed_mps * 3.6, 1)
+
 @app.route('/weather/<city>', methods=['GET'])
 def get_weather_by_city(city):
     # URLs para obtener el clima actual y la previsión
@@ -32,12 +36,17 @@ def get_weather_by_city(city):
         city_name = current_data["name"]
         sunrise = current_data["sys"].get("sunrise")
         sunset = current_data["sys"].get("sunset")
+        
+        # Convertir la velocidad del viento a km/h
+        wind_speed_kmh = convert_wind_speed_to_kmh(current_data["wind"]["speed"])
+
         current_weather = {
             "temperature": round(current_data["main"]["temp"]),
             "sunrise": datetime.fromtimestamp(sunrise, tz=timezone.utc).strftime('%H:%M') if sunrise else "No disponible",
             "sunset": datetime.fromtimestamp(sunset, tz=timezone.utc).strftime('%H:%M') if sunset else "No disponible",
-            "wind_speed": current_data["wind"]["speed"],
+            "wind_speed": wind_speed_kmh,  # Usamos la velocidad en km/h aquí
             "humidity": current_data["main"]["humidity"],
+            "rain_probability": current_data.get('rain', {}).get('1h', 0),  # Probabilidad de lluvia
             "icon": current_data["weather"][0]["icon"]
         }
 
@@ -51,13 +60,14 @@ def get_weather_by_city(city):
                 "time": item["dt_txt"],
                 "temperature": round(item["main"]["temp"]),
                 "description": item["weather"][0]["description"],
+                "rain_probability": item.get('rain', {}).get('3h', 0),  # Probabilidad de lluvia por hora
                 "icon": item["weather"][0]["icon"]
             }
             for item in forecast_data['list']
             if current_time <= datetime.strptime(item["dt_txt"], '%Y-%m-%d %H:%M:%S') <= current_time + timedelta(hours=15)
         ]
 
-        # Previsión por días (máximas, mínimas, icono)
+        # Previsión por días (máximas, mínimas, icono y probabilidad de lluvia)
         daily_forecast = {}
         for item in forecast_data['list']:
             date = item['dt_txt'].split()[0]  # Obtiene solo la fecha (yyyy-mm-dd)
@@ -66,10 +76,15 @@ def get_weather_by_city(city):
                 daily_forecast[date] = {
                     'temperature': [],
                     'description': item['weather'][0]['description'],
-                    'icon': item['weather'][0]['icon']
+                    'icon': item['weather'][0]['icon'],
+                    'rain_probability': 0  # Inicializar la probabilidad de lluvia
                 }
 
             daily_forecast[date]['temperature'].append(item['main']['temp'])
+
+            # Acumular probabilidad de lluvia diaria
+            rain = item.get('rain', {}).get('3h', 0)
+            daily_forecast[date]['rain_probability'] = max(daily_forecast[date]['rain_probability'], rain)
 
         # Calculamos la temperatura máxima y mínima por día
         forecast_data_list = []
@@ -83,7 +98,8 @@ def get_weather_by_city(city):
                 "temperature_max": round(max_temp),
                 "temperature_min": round(min_temp),
                 "description": details['description'],
-                "icon": details['icon']
+                "icon": details['icon'],
+                "rain_probability": details['rain_probability']  # Agregar la probabilidad de lluvia
             })
 
         # Filtrar los próximos 5 días después de hoy
@@ -134,12 +150,17 @@ def get_weather_by_location():
         city_name = current_data["name"]
         sunrise = current_data["sys"].get("sunrise")
         sunset = current_data["sys"].get("sunset")
+
+        # Convertir la velocidad del viento a km/h
+        wind_speed_kmh = convert_wind_speed_to_kmh(current_data["wind"]["speed"])
+
         current_weather = {
             "temperature": round(current_data["main"]["temp"]),
             "sunrise": datetime.fromtimestamp(sunrise, tz=timezone.utc).strftime('%H:%M') if sunrise else "No disponible",
             "sunset": datetime.fromtimestamp(sunset, tz=timezone.utc).strftime('%H:%M') if sunset else "No disponible",
-            "wind_speed": current_data["wind"]["speed"],
+            "wind_speed": wind_speed_kmh,  # Usamos la velocidad en km/h aquí
             "humidity": current_data["main"]["humidity"],
+            "rain_probability": current_data.get('rain', {}).get('1h', 0),  # Probabilidad de lluvia
             "icon": current_data["weather"][0]["icon"]
         }
 
@@ -153,13 +174,14 @@ def get_weather_by_location():
                 "time": item["dt_txt"],
                 "temperature": round(item["main"]["temp"]),
                 "description": item["weather"][0]["description"],
+                "rain_probability": item.get('rain', {}).get('3h', 0),  # Probabilidad de lluvia por hora
                 "icon": item["weather"][0]["icon"]
             }
             for item in forecast_data['list']
             if current_time <= datetime.strptime(item["dt_txt"], '%Y-%m-%d %H:%M:%S') <= current_time + timedelta(hours=15)
         ]
 
-        # Previsión por días (máximas, mínimas, icono)
+        # Previsión por días (máximas, mínimas, icono y probabilidad de lluvia)
         daily_forecast = {}
         for item in forecast_data['list']:
             date = item['dt_txt'].split()[0]  # Obtiene solo la fecha (yyyy-mm-dd)
@@ -168,10 +190,15 @@ def get_weather_by_location():
                 daily_forecast[date] = {
                     'temperature': [],
                     'description': item['weather'][0]['description'],
-                    'icon': item['weather'][0]['icon']
+                    'icon': item['weather'][0]['icon'],
+                    'rain_probability': 0  # Inicializar la probabilidad de lluvia
                 }
 
             daily_forecast[date]['temperature'].append(item['main']['temp'])
+
+            # Acumular probabilidad de lluvia diaria
+            rain = item.get('rain', {}).get('3h', 0)
+            daily_forecast[date]['rain_probability'] = max(daily_forecast[date]['rain_probability'], rain)
 
         # Calculamos la temperatura máxima y mínima por día
         forecast_data_list = []
@@ -185,7 +212,8 @@ def get_weather_by_location():
                 "temperature_max": round(max_temp),
                 "temperature_min": round(min_temp),
                 "description": details['description'],
-                "icon": details['icon']
+                "icon": details['icon'],
+                "rain_probability": details['rain_probability']  # Agregar la probabilidad de lluvia
             })
 
         # Filtrar los próximos 5 días después de hoy
