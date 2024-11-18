@@ -78,7 +78,7 @@ const App: React.FC = () => {
         setError('');
         setSearched(true); // Marcar como búsqueda realizada
         try {
-            const response = await fetch(`http://localhost:5000/weather/${city}`);
+            const response = await fetch(`https://nimbus-weather-qt7w.onrender.com/weather/${city}`);
             if (response.ok) {
                 const data = await response.json();
                 setWeatherData(data);
@@ -111,7 +111,7 @@ const App: React.FC = () => {
                     setSearched(true); // Marcar como búsqueda realizada
                     try {
                         const response = await fetch(
-                            `http://localhost:5000/weather?lat=${latitude}&lon=${longitude}`
+                            `https://nimbus-weather-qt7w.onrender.com/weather?lat=${latitude}&lon=${longitude}`
                         );
                         if (response.ok) {
                             const data = await response.json();
