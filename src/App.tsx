@@ -198,8 +198,22 @@ const App: React.FC = () => {
                                 <div className="mt-4 bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl p-4 flex items-center justify-between h-full">
                                     {/* Columna izquierda: Sunrise y Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
-                                        <p className="text-lg font-bold">🌅 Sunrise: {weatherData.current_weather.sunrise}</p>
-                                        <p className="text-lg font-bold">🌇 Sunset: {weatherData.current_weather.sunset}</p>
+                                        <div className="flex items-center gap-2">
+                                            <img
+                                                src="https://cdn-icons-png.flaticon.com/512/727/727820.png"
+                                                alt="Sunrise"
+                                                className="w-6 h-6"
+                                            />
+                                            <p className="text-lg font-bold">{weatherData.current_weather.sunrise}</p>
+                                        </div>
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <img
+                                                src="https://cdn4.iconfinder.com/data/icons/perfectline-weather/512/Sunset-512.png"
+                                                alt="Sunset"
+                                                className="w-6 h-6"
+                                            />
+                                                <p className="text-lg font-bold">{weatherData.current_weather.sunset}</p>
+                                        </div>
                                     </div>
 
                                     {/* Columna central: Temperatura, icono*/}
@@ -214,9 +228,30 @@ const App: React.FC = () => {
 
                                     {/* Columna derecha: Wind y Humidity */}
                                     <div className="flex flex-col items-end w-1/3">
-                                        <p className="text-lg font-bold">💨 Wind: {(weatherData.current_weather.wind_speed * 3.6).toFixed(1)} km/h</p>
-                                        <p className="text-lg font-bold">💧 Humidity: {weatherData.current_weather.humidity}%</p>
-                                        <p className="text-lg font-bold">🌧️ {weatherData.current_weather.rain_probability}%</p>
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <img
+                                                src="https://cdn-icons-png.flaticon.com/512/2011/2011448.png"
+                                                alt="Wind"
+                                                className="w-6 h-6"
+                                            />
+                                                <p className="text-lg font-bold">:{(weatherData.current_weather.wind_speed * 3.6).toFixed(1)} km/h</p>
+                                        </div>
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <img
+                                                src="https://cdn-icons-png.flaticon.com/512/219/219816.png"
+                                                alt="Humidity"
+                                                className="w-6 h-6"
+                                            />
+                                                <p className="text-lg font-bold">:{weatherData.current_weather.humidity}%</p>
+                                        </div>
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <img
+                                                src="https://cdn-icons-png.flaticon.com/512/116/116251.png"
+                                                alt="Rain"
+                                                className="w-6 h-6"
+                                            />
+                                                <p className="text-lg font-bold">:{weatherData.current_weather.rain_probability}%</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
