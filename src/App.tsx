@@ -78,7 +78,7 @@ const App: React.FC = () => {
         setError('');
         setSearched(true); // Marcar como búsqueda realizada
         try {
-            const response = await fetch(`https://nimbus-weather-qt7w.onrender.com/weather/${city}`);
+            const response = await fetch(`http://localhost:5000/weather/${city}`);
             if (response.ok) {
                 const data = await response.json();
                 setWeatherData(data);
@@ -111,8 +111,7 @@ const App: React.FC = () => {
                     setSearched(true); // Marcar como búsqueda realizada
                     try {
                         const response = await fetch(
-                            `https://nimbus-weather-qt7w.onrender.com/weather?lat=${latitude}&lon=${longitude}`
-                        );
+                            `http://localhost:5000/weather?lat=${latitude}&lon=${longitude}`);
                         if (response.ok) {
                             const data = await response.json();
                             setWeatherData(data);
@@ -137,7 +136,7 @@ const App: React.FC = () => {
     };
     
     return (
-        <div className="App p-5 mt-5 mx-96 table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#75c3db] via-[#44a8a0] to-[#298a46] shadow-xl relative">
+        <div className="App p-5 mt-5 mx-auto max-w-screen-lg table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#75c3db] via-[#44a8a0] to-[#298a46] shadow-xl relative">
             {/* Botón de ubicación en la esquina superior izquierda */}
             <button
                 onClick={handleCurrentLocation}
@@ -192,10 +191,10 @@ const App: React.FC = () => {
                 <div className="mt-4">
                     <div className="flex flex-col gap-4">
                         {/* Clima actual */}
-                        <div className="flex gap-4 mb-4">
-                            <div className="flex flex-col w-1/2 h-[300px]">
-                                <h3 className="text-xl font-bold mt-4">Current Weather</h3>
-                                <div className="mt-4 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 flex items-center justify-between h-full">
+                        <div className="flex flex-col sm:flex-row justify-center items-center mb-4 gap-4">
+                            <div className="w-full sm:w-1/2 h-auto sm:h-[300px]">
+                                <h3 className="text-lg sm:text-xl font-bold mt-4">Current Weather</h3>
+                                <div className="mt-4 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 flex flex-wrap sm:flex-nowrap items-center justify-between h-full">
                                     {/* Columna izquierda: Sunrise y Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
                                         <div className="flex items-center gap-2">
@@ -257,7 +256,7 @@ const App: React.FC = () => {
                             </div>
 
                             {/* Pronóstico horario */}
-                            <div className="w-1/2 h-[300px]">
+                            <div className="w-full sm:w-1/2 h-auto sm:h-[300px]">
                                 <h3 className="text-xl font-bold">Hourly Forecast</h3>
                                 <div className="h-full flex">
                                     <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-full">
@@ -301,7 +300,7 @@ const App: React.FC = () => {
 
                         {/* Pronóstico de los próximos 5 días */}
                         <h3 className="text-xl font-bold">Next 5 Days Forecast</h3>
-                        <div className="flex gap-4 mt-4">
+                        <div className="h-full flex gap-4 mt-4">
                             {weatherData.daily_forecast.map((day, index) => (
                                 <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-1/5 p-4 text-center">
                                     <p className="font-bold">
