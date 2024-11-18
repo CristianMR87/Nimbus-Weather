@@ -195,7 +195,7 @@ const App: React.FC = () => {
                         <div className="flex gap-4 mb-4">
                             <div className="flex flex-col w-1/2 h-[300px]">
                                 <h3 className="text-xl font-bold mt-4">Current Weather</h3>
-                                <div className="mt-4 bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl p-4 flex items-center justify-between h-full">
+                                <div className="mt-4 bg-gradient-to-b from-[#50626d] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 flex items-center justify-between h-full">
                                     {/* Columna izquierda: Sunrise y Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
                                         <div className="flex items-center gap-2">
@@ -260,7 +260,7 @@ const App: React.FC = () => {
                             <div className="w-1/2 h-[300px]">
                                 <h3 className="text-xl font-bold">Hourly Forecast</h3>
                                 <div className="h-full flex">
-                                    <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl w-full">
+                                    <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#50626d] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-full">
                                         <thead>
                                             <tr>
                                                 <th className="border p-2">Hour</th>
@@ -303,7 +303,7 @@ const App: React.FC = () => {
                         <h3 className="text-xl font-bold">Next 5 Days Forecast</h3>
                         <div className="flex gap-4 mt-4">
                             {weatherData.daily_forecast.map((day, index) => (
-                                <div key={index} className="bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl w-1/5 p-4 text-center">
+                                <div key={index} className="bg-gradient-to-b from-[#50626d] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-1/5 p-4 text-center">
                                     <p className="font-bold">
                                         {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
                                     </p>
