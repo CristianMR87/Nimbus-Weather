@@ -177,7 +177,7 @@ const App: React.FC = () => {
             {/* Mensaje si la ciudad está vacía y no se ha realizado la búsqueda */}
             {!searched && city === '' && !loading && (
                 <div className="text-center">
-                    <p className="text-black mt-4 text-center text-2xl font-bold">Juanes mariquita!</p>
+                    <p className="text-black mt-4 text-center text-2xl font-bold">Welcome to Nimbus Weather!</p>
                 </div>
             )}
 
