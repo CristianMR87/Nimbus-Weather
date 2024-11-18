@@ -47,9 +47,9 @@ const App: React.FC = () => {
     const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [currentDateTime, setCurrentDateTime] = useState<string>('');
-    const [searched, setSearched] = useState<boolean>(false); // Estado para controlar si se ha realizado la búsqueda
+    const [searched, setSearched] = useState<boolean>(false); // State to track if search was performed
 
-    // Función para obtener y actualizar la fecha y hora actuales
+    // Function to get and update current date and time
     useEffect(() => {
         const updateDateTime = () => {
             const now = new Date();
@@ -65,25 +65,25 @@ const App: React.FC = () => {
         };
 
         updateDateTime();
-        const interval = setInterval(updateDateTime, 60000); // Actualiza cada minuto
-        return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+        const interval = setInterval(updateDateTime, 60000); // Update every minute
+        return () => clearInterval(interval); // Clean up the interval when component is unmounted
     }, []);
 
     const handleSearch = async () => {
         setLoading(true);
         setError('');
-        setSearched(true); // Marcar como que se ha realizado la búsqueda
+        setSearched(true); // Mark as search performed
         try {
             const response = await fetch(`http://localhost:5000/weather/${city}`);
             if (response.ok) {
                 const data = await response.json();
                 setWeatherData(data);
             } else {
-                setError('No se pudo obtener el clima. Verifique la ciudad.');
+                setError('Could not fetch weather. Please check the city.');
                 setWeatherData(null);
             }
         } catch (err) {
-            setError('Hubo un error al hacer la petición');
+            setError('There was an error making the request');
             setWeatherData(null);
         } finally {
             setLoading(false);
@@ -96,7 +96,7 @@ const App: React.FC = () => {
         }
     };
 
-    // Función para manejar la geolocalización
+    // Function to handle geolocation
     const handleCurrentLocation = async () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -104,7 +104,7 @@ const App: React.FC = () => {
                     const { latitude, longitude } = position.coords;
                     setLoading(true);
                     setError('');
-                    setSearched(true); // Marcar como que se ha realizado la búsqueda
+                    setSearched(true); // Mark as search performed
                     try {
                         const response = await fetch(
                             `http://localhost:5000/weather?lat=${latitude}&lon=${longitude}`
@@ -113,39 +113,39 @@ const App: React.FC = () => {
                             const data = await response.json();
                             setWeatherData(data);
                         } else {
-                            setError('No se pudo obtener el clima basado en la ubicación.');
+                            setError('Could not fetch weather based on location.');
                             setWeatherData(null);
                         }
                     } catch (err) {
-                        setError('Hubo un error al hacer la petición');
+                        setError('There was an error making the request');
                         setWeatherData(null);
                     } finally {
                         setLoading(false);
                     }
                 },
                 (error) => {
-                    setError('No se pudo obtener la ubicación. Asegúrese de que la geolocalización esté habilitada.');
+                    setError('Could not retrieve location. Please ensure geolocation is enabled.');
                 }
             );
         } else {
-            setError('La geolocalización no está soportada en este navegador.');
+            setError('Geolocation is not supported in this browser.');
         }
     };
 
     return (
         <div className="App p-5 mt-5 mx-96 table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#4b6d8c] via-[#6f8fa6] to-[#b0c5d1] shadow-xl relative">
-            {/* Botón de ubicación en la esquina superior izquierda */}
+            {/* Location button in the top left corner */}
             <button
                 onClick={handleCurrentLocation}
                 className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl absolute top-4 left-4"
                 disabled={loading}
             >
-                {loading ? 'Cargando...' : 'Current Location'}
+                {loading ? 'Loading...' : 'Current Location'}
             </button>
 
             <div className="flex justify-center items-center mb-4">
-                <div className="flex w-full max-w-md gap-4"> {/* Agregamos gap para separación */}
-                    {/* Input de búsqueda sin cambios */}
+                <div className="flex w-full max-w-md gap-4"> {/* Added gap for separation */}
+                    {/* Search input unchanged */}
                     <div className="relative w-full">
                         <input
                             type="text"
@@ -170,7 +170,7 @@ const App: React.FC = () => {
                 </div>
             </div>
 
-            {/* Mostrar el mensaje si la ciudad está vacía y no se ha realizado la búsqueda */}
+            {/* Display message if city is empty and search not performed */}
             {!searched && city === '' && !loading && (
                 <div className="text-center">
                     <p className="text-black mt-4 text-center text-2xl font-bold">Welcome to Nimus Weather!</p>
@@ -186,93 +186,98 @@ const App: React.FC = () => {
 
             {weatherData && (
                 <div className="mt-4">
-                    {/* Contenedor de la predicción actual y la predicción de los próximos 5 días */}
+                    {/* Current weather prediction and next 5 days forecast container */}
                     <div className="flex flex-col gap-4">
-                        {/* Predicción actual */}
+                        {/* Current prediction */}
                         <div className="flex gap-4 mb-4">
-                            {/* Contenedor para la predicción del día actual */}
+                            {/* Container for current day's weather prediction */}
                             <div className="flex flex-col w-1/2 h-[300px]">
-                                <h3 className="text-xl font-bold mt-4">Clima Actual</h3>
+                                <h3 className="text-xl font-bold mt-4">Current Weather</h3>
                                 <div className="mt-4 bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl p-4 flex items-center justify-between h-full">
                                     
-                                    {/* Columna izquierda: Amanecer y atardecer */}
+                                    {/* Left column: Sunrise and Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
-                                        <p className="text-lg">🌅 Amanecer: {weatherData.current_weather.sunrise}</p>
-                                        <p className="text-lg">🌇 Atardecer: {weatherData.current_weather.sunset}</p>
+                                        <p className="text-lg">🌅 Sunrise: {weatherData.current_weather.sunrise}</p>
+                                        <p className="text-lg">🌇 Sunset: {weatherData.current_weather.sunset}</p>
                                     </div>
 
-                                    {/* Columna central: Grados y icono */}
+                                    {/* Center column: Temperature and icon */}
                                     <div className="flex flex-col justify-center items-center w-1/3">
                                         <p className="text-4xl font-bold">{weatherData.current_weather.temperature}°C</p>
                                         <img
                                             src={`http://openweathermap.org/img/wn/${weatherData.current_weather.icon}@4x.png`}
-                                            alt="Icono del clima"
+                                            alt="Weather Icon"
                                             className="w-24 h-24"
                                         />
                                     </div>
 
-                                    {/* Columna derecha: Viento y humedad */}
+                                    {/* Right column: Wind and Humidity */}
                                     <div className="flex flex-col items-end w-1/3">
-                                        <p className="text-lg">💨 Viento: {weatherData.current_weather.wind_speed} m/s</p>
-                                        <p className="text-lg">💧 Humedad: {weatherData.current_weather.humidity}%</p>
+                                        <p className="text-lg">💨 Wind: {weatherData.current_weather.wind_speed} m/s</p>
+                                        <p className="text-lg">💧 Humidity: {weatherData.current_weather.humidity}%</p>
                                     </div>
-
                                 </div>
                             </div>
 
-                            {/* Predicción por horas */}
+                            {/* Hourly Forecast */}
                             <div className="w-1/2 h-[300px]">
-                                <h3 className="text-xl font-bold">Predicción por horas</h3>
+                                <h3 className="text-xl font-bold">Hourly Forecast</h3>
                                 <div className="h-full flex">
                                     <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl w-full">
                                         <thead>
                                             <tr>
-                                                <th className="border p-2">Hora</th>
-                                                <th className="border p-2">Temperatura</th>
-                                                <th className="border p-2">Descripción</th>
+                                                <th className="border p-2">Hour</th>
+                                                <th className="border p-2">Temperature</th>
+                                                <th className="border p-2">Description</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {weatherData.hourly_forecast.map((hour, index) => (
-                                                <tr key={index}>
-                                                    <td className="border p-2">{hour.time}</td>
-                                                    <td className="border p-2">{hour.temperature}°C</td>
-                                                    <td className="border p-2">{hour.description}</td>
-                                                </tr>
-                                            ))}
+                                            {weatherData.hourly_forecast.map((hour, index) => {
+                                                // Crear un objeto Date a partir de la cadena de hora (suponiendo que hour.time es una cadena válida)
+                                                const hourDate = new Date(hour.time);
+
+                                                // Formatear la hora para que solo se muestren las horas y los minutos
+                                                const formattedTime = hourDate.toLocaleTimeString([], {
+                                                    hour: '2-digit',
+                                                    minute: '2-digit'
+                                                });
+
+                                                return (
+                                                    <tr key={index}>
+                                                        <td className="border p-2 font-bold text-center">{formattedTime}</td>
+                                                        <td className="border p-2 font-bold text-center">{hour.temperature}°C</td>
+                                                        <td className="border p-2 text-center">
+                                                            <img
+                                                                src={`http://openweathermap.org/img/wn/${hour.icon}@2x.png`}
+                                                                alt={hour.description}
+                                                                className="inline-block w-8 h-8"
+                                                            />
+                                                            {hour.description}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Predicción de los próximos 5 días debajo de la predicción actual */}
-                        <div className="flex flex-col w-full">
-                            <h3 className="text-xl font-bold mb-4">Predicción de los Próximos 5 Días</h3>
-                            <table className="table-auto border-collapse border-gray-200 bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#acb7be] shadow-xl rounded-xl w-full">
-                                <thead>
-                                    <tr>
-                                        <th colSpan={5} className="border p-2 font-bold">5 day forecast:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {weatherData.daily_forecast.map((day, index) => (
-                                        <tr key={index}>
-                                            <td className="border p-2 font-bold">{day.date}</td>
-                                            <td className="border p-2 font-bold">{day.temperature_max}°C</td>
-                                            <td className="border p-2 font-bold">{day.temperature_min}°C</td>
-                                            <td className="border p-2">{day.description}</td>
-                                            <td className="border p-2">
-                                                <img
-                                                    src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`}
-                                                    alt="Icono del clima"
-                                                    className="w-12 h-12"
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        {/* Next 5 days Forecast */}
+                        <h3 className="text-xl font-bold">Next 5 Days Forecast</h3>
+                        <div className="flex gap-4 mt-4">
+                            {weatherData.daily_forecast.map((day, index) => (
+                                <div key={index} className="bg-gradient-to-b from-[#50626d] via-[#848fa7] to-[#c3cfd7] shadow-xl rounded-xl w-1/5 p-4 text-center">
+                                    <p className="font-bold">{day.date}</p>
+                                    <img
+                                        src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`}
+                                        alt={day.description}
+                                        className="w-16 h-16 mx-auto"
+                                    />
+                                    <p className="font-bold">{day.temperature_max}°C / {day.temperature_min}°C</p>
+                                    <p>{day.description}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
