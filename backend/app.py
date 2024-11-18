@@ -4,7 +4,7 @@ import requests
 from datetime import datetime, timezone, timedelta
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://nimbus-weather-aq2q5kl72-cristians-projects-ad7ebaba.vercel.app"])
 
 # Clave API de OpenWeather
 api_key = '70529b5640e2a185b9885cb8b938002a'
