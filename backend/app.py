@@ -32,7 +32,7 @@ def get_weather(city):
         sunrise = current_data["sys"].get("sunrise")
         sunset = current_data["sys"].get("sunset")
         current_weather = {
-            "temperature": current_data["main"]["temp"],
+            "temperature": round(current_data["main"]["temp"]),
             "sunrise": datetime.fromtimestamp(sunrise, tz=timezone.utc).strftime('%H:%M') if sunrise else "No disponible",
             "sunset": datetime.fromtimestamp(sunset, tz=timezone.utc).strftime('%H:%M') if sunset else "No disponible",
             "wind_speed": current_data["wind"]["speed"],
@@ -48,7 +48,7 @@ def get_weather(city):
         hourly_forecast = [
             {
                 "time": item["dt_txt"],
-                "temperature": item["main"]["temp"],
+                "temperature": round(item["main"]["temp"]),
                 "description": item["weather"][0]["description"],
                 "icon": item["weather"][0]["icon"]
             }
@@ -78,9 +78,9 @@ def get_weather(city):
             min_temp = min(details['temperature'])
             forecast_data_list.append({
                 "date": date,
-                "temperature_avg": avg_temp,
-                "temperature_max": max_temp,
-                "temperature_min": min_temp,
+                "temperature_avg": round(avg_temp),
+                "temperature_max": round(max_temp),
+                "temperature_min": round(min_temp),
                 "description": details['description'],
                 "icon": details['icon']
             })
