@@ -1,10 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
+interface Forecast {
+    date: string;
+    temperature: number;
+    description: string;
+    icon: string;
+    rain_probability: number;
+}
+
+interface HourlyForecast {
+    time: string;
+    temperature: number;
+    description: string;
+    icon: string;
+    rain_probability: number;
+}
+
+interface DailyForecast {
+    date: string;
+    temperature_max: number;
+    temperature_min: number;
+    icon: string;
+    description: string;
+    rain_probability: number;
+}
+
+interface CurrentWeather {
+    temperature: number;
+    sunrise: string;
+    sunset: string;
+    wind_speed: number;
+    humidity: number;
+    icon: string;
+    rain_probability: number;
+}
+
+interface WeatherData {
+    city: string;
+    current_weather: CurrentWeather;
+    forecast: Forecast | null;
+    hourly_forecast: HourlyForecast[];
+    daily_forecast: DailyForecast[];
+}
+
 const App: React.FC = () => {
     const [city, setCity] = useState<string>('');
-    const [weatherData, setWeatherData] = useState<any | null>(null);
+    const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
     const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [currentDateTime, setCurrentDateTime] = useState<string>('');
@@ -92,76 +135,80 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="App p-5 mt-5 mx-auto max-w-screen-lg table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#75c3db] via-[#44a8a0] to-[#298a46] shadow-xl relative">
+        <div className="App p-5 mx-auto max-w-7xl sm:px-4 md:px-8 bg-gradient-to-b from-[#75c3db] via-[#44a8a0] to-[#298a46] shadow-xl rounded-xl">
             <button
                 onClick={handleCurrentLocation}
-                className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl absolute top-4 left-4"
+                className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-lg absolute top-4 left-4"
                 disabled={loading}
             >
                 {loading ? 'Loading...' : 'Current Location'}
             </button>
 
-            <div className="flex justify-center items-center mb-4">
-                <div className="flex w-full max-w-md gap-4">
-                    <div className="relative w-full">
-                        <input
-                            type="text"
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            onKeyDown={handleKeyPress}
-                            placeholder="Search City or Zip Code"
-                            className="p-2 border rounded pl-10 text-black pr-16 w-full shadow-xl"
-                        />
-                        <button
-                            onClick={handleSearch}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 p-1"
-                            disabled={loading}
-                        >
-                            {loading ? (
-                                <span className="animate-spin">⏳</span>
-                            ) : (
-                                <FontAwesomeIcon icon={faSearch} />
-                            )}
-                        </button>
-                    </div>
+            <div className="flex flex-col items-center mb-4">
+                <div className="relative w-full max-w-lg">
+                    <input
+                        type="text"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        onKeyDown={handleKeyPress}
+                        placeholder="Search City or Zip Code"
+                        className="p-2 border rounded pl-10 text-black w-full shadow"
+                    />
+                    <button
+                        onClick={handleSearch}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <span className="animate-spin">⏳</span>
+                        ) : (
+                            <FontAwesomeIcon icon={faSearch} />
+                        )}
+                    </button>
                 </div>
             </div>
 
             {!searched && city === '' && !loading && (
-                <div className="text-center">
-                    <p className="text-black mt-4 text-center text-2xl font-bold">Welcome to Nimbus Weather!</p>
-                </div>
+                <p className="text-black mt-4 text-center text-2xl font-bold">Welcome to Nimbus Weather!</p>
             )}
 
             {error && <p className="text-red-500 mt-4">{error}</p>}
 
             <div className="flex flex-col items-center mt-4">
-                <h1 className="text-lg sm:text-xl md:text-2xl font-bold">{weatherData?.city}</h1>
+                <h1 className="text-2xl font-bold">{weatherData?.city}</h1>
                 <p className="text-black">{currentDateTime}</p>
             </div>
 
             {weatherData && (
                 <div className="mt-4">
                     <div className="flex flex-wrap gap-4">
-                        <div className="flex flex-col w-full lg:w-1/2 h-[300px]">
+                        <div className="flex-1 min-w-[300px]">
                             <h3 className="text-xl font-bold mt-4">Current Weather</h3>
-                            {/* Clima actual */}
+                            <div className="mt-4 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-lg rounded-lg p-4">
+                                {/* Current weather details */}
+                            </div>
                         </div>
-                        <div className="w-full lg:w-1/2 h-[300px]">
+
+                        <div className="flex-1 min-w-[300px]">
                             <h3 className="text-xl font-bold">Hourly Forecast</h3>
-                            <div className="overflow-auto">
-                                <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-full">
-                                    {/* Tabla del pronóstico */}
+                            <div className="overflow-x-auto">
+                                <table className="table-auto mt-2 w-full">
+                                    <thead>
+                                        {/* Hourly Forecast Table Header */}
+                                    </thead>
+                                    <tbody>
+                                        {/* Hourly Forecast Table Body */}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
 
                     <h3 className="text-xl font-bold mt-4">Next 5 Days Forecast</h3>
-                    <div className="flex flex-wrap gap-4 mt-4">
-                        {weatherData.daily_forecast.map((day: any, index: number) => (
-                            <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-full sm:w-1/2 lg:w-1/5 p-4 text-center">
-                                {/* Pronóstico diario */}
+                    <div className="flex flex-wrap gap-4">
+                        {weatherData.daily_forecast.map((day, index) => (
+                            <div key={index} className="flex-1 min-w-[150px] p-4">
+                                {/* Daily forecast details */}
                             </div>
                         ))}
                     </div>
