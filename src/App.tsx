@@ -78,7 +78,7 @@ const App: React.FC = () => {
         setError('');
         setSearched(true); // Marcar como búsqueda realizada
         try {
-            const response = await fetch(`https://nimbus-weather-qt7w.onrender.com/weather/${city}`);
+            const response = await fetch(`https://nimbus-weather-qt7w.onrender.com/weather/Madrid`);
             if (response.ok) {
                 const data = await response.json();
                 setWeatherData(data);
