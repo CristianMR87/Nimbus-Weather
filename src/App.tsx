@@ -192,10 +192,10 @@ const App: React.FC = () => {
                 <div className="mt-4">
                     <div className="flex flex-col gap-4">
                         {/* Clima actual */}
-                        <div className="flex gap-4 mb-4">
-                            <div className="flex flex-col w-1/2 h-[300px]">
-                                <h3 className="text-xl font-bold mt-4">Current Weather</h3>
-                                <div className="mt-4 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 flex items-center justify-between h-full">
+                        <div className="flex flex-col sm:flex-row sm:gap-4 gap-2">
+                            <div className="w-full sm:w-1/2 h-auto sm:h-[300px]">
+                                <h3 className="text-lg sm:text-xl font-bold mt-4">Current Weather</h3>
+                                <div className="mt-4 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 flex flex-wrap sm:flex-nowrap items-center justify-between h-full">
                                     {/* Columna izquierda: Sunrise y Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
                                         <div className="flex items-center gap-2">
@@ -301,7 +301,7 @@ const App: React.FC = () => {
 
                         {/* Pronóstico de los próximos 5 días */}
                         <h3 className="text-xl font-bold">Next 5 Days Forecast</h3>
-                        <div className="flex gap-4 mt-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-4">
                             {weatherData.daily_forecast.map((day, index) => (
                                 <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-1/5 p-4 text-center">
                                     <p className="font-bold">
