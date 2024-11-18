@@ -137,7 +137,7 @@ const App: React.FC = () => {
     };
     
     return (
-        <div className="App p-5 mt-5 mx-96 table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#66a8bd] via-[#367962] to-[#298a46] shadow-xl relative">
+        <div className="App p-5 mt-5 mx-96 table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#75c3db] via-[#44a8a0] to-[#298a46] shadow-xl relative">
             {/* Botón de ubicación en la esquina superior izquierda */}
             <button
                 onClick={handleCurrentLocation}
@@ -157,7 +157,7 @@ const App: React.FC = () => {
                             onChange={(e) => setCity(e.target.value)}
                             onKeyDown={handleKeyPress}
                             placeholder="Search City or Zip Code"
-                            className="p-2 border rounded pl-10 pr-16 w-full shadow-xl"
+                            className="p-2 border rounded pl-10 text-black pr-16 w-full shadow-xl"
                         />
                         <button
                             onClick={handleSearch}
