@@ -139,7 +139,7 @@ const App: React.FC = () => {
             {/* Botón de ubicación en la esquina superior izquierda */}
             <button
                 onClick={handleCurrentLocation}
-                className={`bg-gradient-to-b from-[#68aabe] to-[#3a7bd5] font-bold p-2 rounded-full shadow-2xl z-10
+                className={`bg-gradient-to-b from-[#68aabe] to-[#4a7d99] font-bold p-2 rounded-full shadow-2xl z-10
                     flex items-center gap-2 sm:w-auto  sm:mb-0 mb-2 hover:scale-110 transition-all duration-200`}
                 disabled={loading}
             >
@@ -223,7 +223,7 @@ const App: React.FC = () => {
                         <div className="flex flex-col sm:flex-row justify-center items-center mb-4 gap-4 ">
                             <div className="w-full sm:w-1/2 h-auto sm:h-[292px] -mt-12">
                                 <h3 className="text-lg sm:text-xl font-bold mt-4">Current Weather</h3>
-                                <div className="mt-4 bg-gradient-to-b from-[#a8d3f1] via-[#6fa1d1] to-[#3a7bd5] shadow-2xl rounded-xl p-4 flex flex-wrap sm:flex-nowrap items-center justify-between h-full">
+                                <div className="mt-4 bg-gradient-to-b from-[#c9d8e1] via-[#7fa8c0] to-[#4a7d99] shadow-2xl rounded-xl p-4 flex flex-wrap sm:flex-nowrap items-center justify-between h-full">
                                     {/* Columna izquierda: Sunrise y Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
                                         <div className="flex items-center gap-2">
@@ -297,7 +297,7 @@ const App: React.FC = () => {
                             <div className="w-full sm:w-1/2 h-auto sm:h-[300px] mt-2">
                                 <h3 className="text-xl font-bold">Hourly Forecast</h3>
                                 <div className="h-full flex">
-                                    <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#a8d3f1] via-[#6fa1d1] to-[#3a7bd5] shadow-2xl rounded-xl w-full">
+                                    <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#c9d8e1] via-[#7fa8c0] to-[#4a7d99] shadow-2xl rounded-xl w-full">
                                         <thead>
                                             <tr>
                                                 <th className="border p-2">Hour</th>
@@ -339,7 +339,7 @@ const App: React.FC = () => {
                         <h3 className="text-xl text-center font-bold mt-5 ">Next 5 Days Forecast</h3>
                     <div className="min-w-[300px] max-w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                         {weatherData.daily_forecast.map((day, index) => (
-                            <div key={index} className="bg-gradient-to-b from-[#a8d3f1] via-[#6fa1d1] to-[#3a7bd5] shadow-2xl rounded-xl p-4 text-center hover:scale-110 transition-all duration-200">
+                            <div key={index} className="bg-gradient-to-b from-[#c9d8e1] via-[#7fa8c0] to-[#4a7d99] shadow-2xl rounded-xl p-4 text-center hover:scale-110 transition-all duration-200">
                                 <p className="font-bold">
                                     {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
                                 </p>
