@@ -83,7 +83,7 @@ const App: React.FC = () => {
                 const data = await response.json();
                 setWeatherData(data);
             } else {
-                setError('Could not fetch weather. Please check the city.');
+                setError('You must enter a city or Zip code.');
                 setWeatherData(null);
             }
         } catch (err) {
@@ -99,6 +99,7 @@ const App: React.FC = () => {
             handleSearch();
         }
     };
+    
 
     // Función para obtener la ubicación actual
     const handleCurrentLocation = async () => {
@@ -161,6 +162,7 @@ const App: React.FC = () => {
                         <span>Current Location</span>
                     </>
                 )}
+                
             </button>
 
             <div className="flex justify-center items-center mb-4">
@@ -223,7 +225,7 @@ const App: React.FC = () => {
                         <div className="flex flex-col sm:flex-row justify-center items-center mb-4 gap-4 ">
                             <div className="w-full sm:w-1/2 h-auto sm:h-[292px] -mt-12">
                                 <h3 className="text-lg sm:text-xl font-bold mt-4">Current Weather</h3>
-                                <div className="mt-4 bg-gradient-to-b from-[#c9d8e1] via-[#7fa8c0] to-[#4a7d99] shadow-2xl rounded-xl p-4 flex flex-wrap sm:flex-nowrap items-center justify-between h-full">
+                                <div className="mt-4 bg-gradient-to-b from-[#c9d8e1] via-[#7fa8c0] to-[#4a7d99] shadow-2xl rounded-xl p-4 flex flex-wrap sm:flex-nowrap items-center justify-between h-full hover:scale-105 transition-all duration-200">
                                     {/* Columna izquierda: Sunrise y Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
                                         <div className="flex items-center gap-2">
@@ -297,13 +299,13 @@ const App: React.FC = () => {
                             <div className="w-full sm:w-1/2 h-auto sm:h-[300px] mt-2">
                                 <h3 className="text-xl font-bold">Hourly Forecast</h3>
                                 <div className="h-full flex">
-                                    <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#c9d8e1] via-[#7fa8c0] to-[#4a7d99] shadow-2xl rounded-xl w-full">
+                                    <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#c9d8e1] via-[#7fa8c0] to-[#4a7d99] shadow-2xl rounded-xl w-full hover:scale-105 transition-all duration-200">
                                         <thead>
                                             <tr>
                                                 <th className="border p-2">Hour</th>
                                                 <th className="border p-2">Temperature</th>
-                                                <th className="border p-2">Sky</th>
-                                                <th className="border p-2 ">🌧️</th>
+                                                <th className="border p-2 w-14">Sky</th>
+                                                <th className="border p-2">🌧️</th>
                                             </tr>
                                         </thead>
                                         <tbody>
