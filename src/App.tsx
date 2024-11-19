@@ -139,7 +139,7 @@ const App: React.FC = () => {
             {/* Botón de ubicación en la esquina superior izquierda */}
             <button
                 onClick={handleCurrentLocation}
-                className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl absolute top-4 left-4"
+                className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl absolute top-5 left-5"
                 disabled={loading}
             >
                 {loading ? 'Loading...' : 'Current Location'}
@@ -171,6 +171,14 @@ const App: React.FC = () => {
                     </div>
                 </div>
             </div>
+                {/* Botón de ubicación fijo debajo del input en dispositivos móviles */}
+            <button
+                onClick={handleCurrentLocation}
+                className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl mt-2 mx-auto sm:hidden w-11/12 z-10"
+                disabled={loading}
+            >
+                {loading ? 'Loading...' : 'Current Location'}
+            </button>
 
             {/* Mensaje si la ciudad está vacía y no se ha realizado la búsqueda */}
             {!searched && city === '' && !loading && (
@@ -187,11 +195,11 @@ const App: React.FC = () => {
             </div>
 
             {weatherData && (
-                <div className="mt-4">
+                <div className="mt-12">
                     <div className="flex flex-col gap-4">
                         {/* Clima actual */}
-                        <div className="flex flex-col sm:flex-row justify-center items-center mb-4 gap-4">
-                            <div className="w-full sm:w-1/2 h-auto sm:h-[300px]">
+                        <div className="flex flex-col sm:flex-row justify-center items-center mb-4 gap-4 ">
+                            <div className="w-full sm:w-1/2 h-auto sm:h-[293px] -mt-12">
                                 <h3 className="text-lg sm:text-xl font-bold mt-4">Current Weather</h3>
                                 <div className="mt-4 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 flex flex-wrap sm:flex-nowrap items-center justify-between h-full">
                                     {/* Columna izquierda: Sunrise y Sunset */}
@@ -255,7 +263,7 @@ const App: React.FC = () => {
                             </div>
 
                             {/* Pronóstico horario */}
-                            <div className="w-full sm:w-1/2 h-auto sm:h-[300px]">
+                            <div className="w-full sm:w-1/2 h-auto sm:h-[300px] mt-2">
                                 <h3 className="text-xl font-bold">Hourly Forecast</h3>
                                 <div className="h-full flex">
                                     <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-full">
@@ -298,24 +306,24 @@ const App: React.FC = () => {
                         </div>
 
                         {/* Pronóstico de los próximos 5 días */}
-                        <h3 className="text-xl font-bold">Next 5 Days Forecast</h3>
-                        <div className="min-w-[700px] max-w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-4">
-                            {weatherData.daily_forecast.map((day, index) => (
-                                <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 text-center">
-                                    <p className="font-bold">
-                                        {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
-                                    </p>
-                                    <img
-                                        src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`}
-                                        alt={day.description}
-                                        className="w-16 h-16 mx-auto"
-                                    />
-                                    <p className="font-bold">{day.temperature_max}°C / {day.temperature_min}°C</p>
-                                    <p>{day.description}</p>
-                                    <p className="font-bold">🌧️: {day.rain_probability}%</p>
-                                </div>
-                            ))}
-                        </div>
+                        <h3 className="text-xl font-bold mt-5">Next 5 Days Forecast</h3>
+                    <div className="min-w-[300px] max-w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {weatherData.daily_forecast.map((day, index) => (
+                            <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 text-center">
+                                <p className="font-bold">
+                                    {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
+                                </p>
+                                <img
+                                    src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`}
+                                    alt={day.description}
+                                    className="w-16 h-16 mx-auto"
+                                />
+                                <p className="font-bold">{day.temperature_max}°C / {day.temperature_min}°C</p>
+                                <p>{day.description}</p>
+                                <p className="font-bold">🌧️: {day.rain_probability}%</p>
+                            </div>
+                        ))}
+                    </div>
                     </div>
                 </div>
             )}
