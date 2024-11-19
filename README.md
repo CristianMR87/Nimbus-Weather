@@ -3,6 +3,7 @@
 Weather App
 
 This is a web application for checking the weather forecast. It uses React with TypeScript on the frontend and Python with Flask on the backend to fetch weather data. The app is fully responsive, styled using Tailwind CSS.
+
 Features
 
     Current weather and 5-day forecast.
@@ -11,6 +12,7 @@ Features
     Modern and responsive user interface.
 
 Technologies
+
     Frontend
 
         React: JavaScript library for building user interfaces.
@@ -60,6 +62,7 @@ Frontend (React + Tailwind CSS)
 Aplicación de consulta del tiempo.
 
 Este es un proyecto de aplicación web para consultar el pronóstico del tiempo. Utiliza React con TypeScript en el frontend y Python con Flask en el backend para la obtención de datos meteorológicos. La aplicación es completamente responsiva, utilizando Tailwind CSS para el diseño y estilos.
+
 Características
 
     Consulta del pronóstico del tiempo actual y para los próximos 5 días.
@@ -68,6 +71,7 @@ Características
     Interfaz de usuario moderna y responsiva.
 
 Tecnologías
+
     Frontend
 
         React: Biblioteca de JavaScript para construir interfaces de usuario.
