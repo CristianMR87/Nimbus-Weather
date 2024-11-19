@@ -1,6 +1,6 @@
 ## English
 
-Weather App
+Nimbus Weather
 
 This is a web application for checking the weather forecast. It uses React with TypeScript on the frontend and Python with Flask on the backend to fetch weather data. The app is fully responsive, styled using Tailwind CSS.
 
@@ -56,10 +56,21 @@ Frontend (React + Tailwind CSS)
 
         --> "The frontend should be available at http://localhost:3000."
 
+Contributing
+
+    Fork the repository.
+    Create a branch for your changes: git checkout -b feature/new-feature.
+    Commit your changes: git commit -am 'Added new feature'.
+    Push to the branch: git push origin feature/new-feature.
+    Open a Pull Request.
+
+License
+
+    This project is licensed under the MIT License.
 
 ## Español
 
-Aplicación de consulta del tiempo.
+Nimbus Weather
 
 Este es un proyecto de aplicación web para consultar el pronóstico del tiempo. Utiliza React con TypeScript en el frontend y Python con Flask en el backend para la obtención de datos meteorológicos. La aplicación es completamente responsiva, utilizando Tailwind CSS para el diseño y estilos.
 
@@ -114,3 +125,15 @@ Instalación
         3.- Inicia el servidor de desarrollo: npm start
 
         --> "El frontend debería estar disponible en http://localhost:3000."
+
+Contribuir
+
+    Fork el repositorio.
+    Crea una rama con tus cambios: git checkout -b feature/nueva-funcionalidad.
+    Haz commit de tus cambios: git commit -am 'Agregada nueva funcionalidad'.
+    Push a la rama: git push origin feature/nueva-funcionalidad.
+    Abre un Pull Request.
+
+Licencia
+
+    ste proyecto está bajo la licencia MIT.
