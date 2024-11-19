@@ -139,7 +139,7 @@ const App: React.FC = () => {
             {/* Botón de ubicación en la esquina superior izquierda */}
             <button
                 onClick={handleCurrentLocation}
-                className={`bg-gradient-to-b from-[#68aabe] to-[#4a7d99] font-bold p-2 rounded-full shadow-2xl z-10
+                className={`bg-gradient-to-b from-[#c9d8e1] via-[#7fa8c0] to-[#4a7d99] font-bold p-2 rounded-full shadow-2xl z-10
                     flex items-center gap-2 sm:w-auto  sm:mb-0 mb-2 hover:scale-110 transition-all duration-200`}
                 disabled={loading}
             >
