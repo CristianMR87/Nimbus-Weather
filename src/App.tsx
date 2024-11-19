@@ -139,10 +139,22 @@ const App: React.FC = () => {
             {/* Botón de ubicación en la esquina superior izquierda */}
             <button
                 onClick={handleCurrentLocation}
-                className="bg-gradient-to-b from-[#629fb1] to-[#b1eed5] font-bold p-2 rounded-full shadow-2xl absolute top-5 left-5"
+                className={`bg-gradient-to-b from-[#68aabe] to-[#b1eed5] font-bold p-2 rounded-full shadow-2xl z-10
+                    flex items-center gap-2 sm:w-auto  sm:mb-0 mb-2 hover:scale-110 transition-all duration-200`}
                 disabled={loading}
             >
-                {loading ? 'Loading...' : 'Current Location'}
+                {loading ? (
+                    <span className="animate-spin">⏳</span>
+                ) : (
+                    <>
+                        <img
+                            src="https://cdn-icons-png.flaticon.com/512/0/619.png"
+                            alt="Current Location"
+                            className="w-6 h-6"
+                        />
+                        <span>Current Location</span>
+                    </>
+                )}
             </button>
 
             <div className="flex justify-center items-center mb-4">
@@ -159,26 +171,18 @@ const App: React.FC = () => {
                         />
                         <button
                             onClick={handleSearch}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 p-1"
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 p-1 hover:text-blue-500 hover:scale-110 transition-all duration-200"
                             disabled={loading}
                         >
                             {loading ? (
                                 <span className="animate-spin">⏳</span>
                             ) : (
-                                <FontAwesomeIcon icon={faSearch} />
+                                <FontAwesomeIcon icon={faSearch} className="text-xl" />
                             )}
                         </button>
                     </div>
                 </div>
             </div>
-                {/* Botón de ubicación fijo debajo del input en dispositivos móviles */}
-            <button
-                onClick={handleCurrentLocation}
-                className="bg-gradient-to-b from-[#68aabe] to-[#b1eed5] p-2 rounded-full font-bold shadow-2xl w-full max-w-xs z-10 sm:hidden"
-                disabled={loading}
-            >
-                {loading ? 'Loading...' : 'Current Location'}
-            </button>
 
             {/* Mensaje si la ciudad está vacía y no se ha realizado la búsqueda */}
             {!searched && city === '' && !loading && (
@@ -317,7 +321,7 @@ const App: React.FC = () => {
                         <h3 className="text-xl text-center font-bold mt-5 ">Next 5 Days Forecast</h3>
                     <div className="min-w-[300px] max-w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                         {weatherData.daily_forecast.map((day, index) => (
-                            <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#7fbfb5] to-[#b1eed5] shadow-2xl rounded-xl p-4 text-center">
+                            <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#7fbfb5] to-[#b1eed5] shadow-2xl rounded-xl p-4 text-center hover:scale-110 transition-all duration-200">
                                 <p className="font-bold">
                                     {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
                                 </p>
