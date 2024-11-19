@@ -174,7 +174,7 @@ const App: React.FC = () => {
                 {/* Botón de ubicación fijo debajo del input en dispositivos móviles */}
             <button
                 onClick={handleCurrentLocation}
-                className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl mt-2 mx-auto sm:hidden w-11/12 z-10"
+                className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl w-full max-w-xs z-10 sm:hidden"
                 disabled={loading}
             >
                 {loading ? 'Loading...' : 'Current Location'}
