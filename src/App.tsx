@@ -135,11 +135,11 @@ const App: React.FC = () => {
     };
     
     return (
-        <div className="App p-5 mt-5 mx-auto max-w-screen-lg table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#75c3db] via-[#44a8a0] to-[#298a46] shadow-xl relative">
+        <div className="App p-5 mt-5 mx-auto max-w-screen-lg table-auto border-collapse border border-gray-200 rounded-xl bg-gradient-to-b from-[#75c3db] via-[#44a8a0] to-[#298a46] shadow-2xl relative">
             {/* Botón de ubicación en la esquina superior izquierda */}
             <button
                 onClick={handleCurrentLocation}
-                className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl absolute top-5 left-5"
+                className="bg-gradient-to-b from-[#8ae4ff] to-[#298a46] font-bold p-2 rounded-full shadow-2xl absolute top-5 left-5"
                 disabled={loading}
             >
                 {loading ? 'Loading...' : 'Current Location'}
@@ -155,7 +155,7 @@ const App: React.FC = () => {
                             onChange={(e) => setCity(e.target.value)}
                             onKeyDown={handleKeyPress}
                             placeholder="Search City or Zip Code"
-                            className="p-2 border rounded pl-10 text-black pr-16 w-full shadow-xl"
+                            className="p-2 border rounded pl-10 text-black font-bold pr-16 w-full shadow-2xl"
                         />
                         <button
                             onClick={handleSearch}
@@ -174,7 +174,7 @@ const App: React.FC = () => {
                 {/* Botón de ubicación fijo debajo del input en dispositivos móviles */}
             <button
                 onClick={handleCurrentLocation}
-                className="bg-gradient-to-b from-[#74b0ff] to-[#b0c5d1] p-2 rounded-full shadow-xl w-full max-w-xs z-10 sm:hidden"
+                className="bg-gradient-to-b from-[#68aabe] to-[#b1eed5] p-2 rounded-full font-bold shadow-2xl w-full max-w-xs z-10 sm:hidden"
                 disabled={loading}
             >
                 {loading ? 'Loading...' : 'Current Location'}
@@ -199,9 +199,9 @@ const App: React.FC = () => {
                     <div className="flex flex-col gap-4">
                         {/* Clima actual */}
                         <div className="flex flex-col sm:flex-row justify-center items-center mb-4 gap-4 ">
-                            <div className="w-full sm:w-1/2 h-auto sm:h-[293px] -mt-12">
+                            <div className="w-full sm:w-1/2 h-auto sm:h-[292px] -mt-12">
                                 <h3 className="text-lg sm:text-xl font-bold mt-4">Current Weather</h3>
-                                <div className="mt-4 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 flex flex-wrap sm:flex-nowrap items-center justify-between h-full">
+                                <div className="mt-4 bg-gradient-to-b from-[#66a8bd] via-[#7fbfb5] to-[#b1eed5] shadow-2xl rounded-xl p-4 flex flex-wrap sm:flex-nowrap items-center justify-between h-full">
                                     {/* Columna izquierda: Sunrise y Sunset */}
                                     <div className="flex flex-col items-start w-1/3">
                                         <div className="flex items-center gap-2">
@@ -266,12 +266,12 @@ const App: React.FC = () => {
                             <div className="w-full sm:w-1/2 h-auto sm:h-[300px] mt-2">
                                 <h3 className="text-xl font-bold">Hourly Forecast</h3>
                                 <div className="h-full flex">
-                                    <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl w-full">
+                                    <table className="table-auto mt-2 border-collapse border-gray-200 bg-gradient-to-b from-[#66a8bd] via-[#7fbfb5] to-[#b1eed5] shadow-2xl rounded-xl w-full">
                                         <thead>
                                             <tr>
                                                 <th className="border p-2">Hour</th>
                                                 <th className="border p-2">Temperature</th>
-                                                <th className="border p-2">Description</th>
+                                                <th className="border p-2">Sky</th>
                                                 <th className="border p-2 ">🌧️</th>
                                             </tr>
                                         </thead>
@@ -287,13 +287,12 @@ const App: React.FC = () => {
                                                     <tr key={index}>
                                                         <td className="border p-2 font-bold text-center">{formattedTime}</td>
                                                         <td className="border p-2 font-bold text-center">{hour.temperature}°C</td>
-                                                        <td className="border p-2 text-center">
+                                                        <td className="border p-2 font-boldtext-center ">
                                                             <img
                                                                 src={`http://openweathermap.org/img/wn/${hour.icon}@2x.png`}
                                                                 alt={hour.description}
-                                                                className="inline-block w-8 h-8"
+                                                                className="ml-2 inline-block w-8 h-8"
                                                             />
-                                                            {hour.description}
                                                         </td>
                                                         <td className="border p-2 text-center font-bold">{hour.rain_probability}%</td>
                                                     </tr>
@@ -306,10 +305,10 @@ const App: React.FC = () => {
                         </div>
 
                         {/* Pronóstico de los próximos 5 días */}
-                        <h3 className="text-xl font-bold mt-5">Next 5 Days Forecast</h3>
+                        <h3 className="text-xl text-center font-bold mt-5 ">Next 5 Days Forecast</h3>
                     <div className="min-w-[300px] max-w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                         {weatherData.daily_forecast.map((day, index) => (
-                            <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#80c0b5] to-[#b1eed5] shadow-xl rounded-xl p-4 text-center">
+                            <div key={index} className="bg-gradient-to-b from-[#66a8bd] via-[#7fbfb5] to-[#b1eed5] shadow-2xl rounded-xl p-4 text-center">
                                 <p className="font-bold">
                                     {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
                                 </p>
