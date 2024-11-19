@@ -211,7 +211,7 @@ const App: React.FC = () => {
                 </div>
             )}
 
-            {error && <p className="text-red-500 mt-4">{error}</p>}
+            {error && <p className="text-red-500 font-bold text-center mt-4">{error}</p>}
 
             <div className="flex flex-col items-center mt-4">
                 <h1 className="text-2xl font-bold">{weatherData?.city}</h1>

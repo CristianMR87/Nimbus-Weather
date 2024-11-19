@@ -14,31 +14,3 @@ body {
 td, th {
     border: none;
 }
-
-.cloud-animation {
-    position: relative;
-    width: 60px;
-    height: 30px;
-  }
-  
-  .cloud {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #fff;
-    border-radius: 50%;
-    width: 80px;
-    height: 50px;
-    box-shadow: 20px 0 0 0 #fff, 40px 0 0 0 #fff, 60px 0 0 0 #fff; /* Simulando una nube */
-    animation: moveCloud 10s linear infinite;
-  }
-  
-  /* Animación de la nube */
-  @keyframes moveCloud {
-    0% {
-      left: -100px;
-    }
-    100% {
-      left: 100%;
-    }
-  }

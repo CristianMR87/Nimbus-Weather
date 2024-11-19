@@ -30,13 +30,13 @@ def get_weather_by_city(city):
         # Obtener clima actual
         current_response = requests.get(current_url)
         if current_response.status_code != 200:
-            return jsonify({"error": "No se pudo obtener el clima actual para esta ciudad"}), 500
+            return jsonify({"error": "Unable to get current weather for this city"}), 500
         current_data = current_response.json()
 
         # Obtener previsión
         forecast_response = requests.get(forecast_url)
         if forecast_response.status_code != 200:
-            return jsonify({"error": "No se pudo obtener la previsión para esta ciudad"}), 500
+            return jsonify({"error": "Unable to get the forecast for this city"}), 500
         forecast_data = forecast_response.json()
 
         # Datos del clima actual
@@ -125,7 +125,7 @@ def get_weather_by_city(city):
 
     except Exception as e:
         print(f"Error fetching or processing weather data: {str(e)}")
-        return jsonify({"error": f"Error al procesar los datos del clima: {str(e)}"}), 500
+        return jsonify({"error": f"Error fetching or processing weather data: {str(e)}"}), 500
 
 
 @app.route('/weather', methods=['GET'])
@@ -134,7 +134,7 @@ def get_weather_by_location():
     lon = request.args.get('lon')
 
     if not lat or not lon:
-        return jsonify({"error": "Se requieren las coordenadas (latitud y longitud)"}), 400
+        return jsonify({"error": "Latitude and longitude are required"}), 400
 
     current_url = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric'
     forecast_url = f'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={api_key}&units=metric'
@@ -142,12 +142,12 @@ def get_weather_by_location():
     try:
         current_response = requests.get(current_url)
         if current_response.status_code != 200:
-            return jsonify({"error": "No se pudo obtener el clima actual para estas coordenadas"}), 500
+            return jsonify({"error": "Unable to get current weather for these coordinates"}), 500
         current_data = current_response.json()
 
         forecast_response = requests.get(forecast_url)
         if forecast_response.status_code != 200:
-            return jsonify({"error": "No se pudo obtener la previsión para estas coordenadas"}), 500
+            return jsonify({"error": "Unable to get the forecast for these coordinates"}), 500
         forecast_data = forecast_response.json()
 
         city_name = current_data["name"]
@@ -223,7 +223,7 @@ def get_weather_by_location():
         })
 
     except Exception as e:
-        return jsonify({"error": f"Error al procesar los datos del clima: {str(e)}"}), 500
+        return jsonify({"error": f"Error fetching or processing weather data: {str(e)}"}), 500
 
 
 if __name__ == '__main__':
