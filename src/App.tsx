@@ -46,11 +46,11 @@ interface WeatherData {
 
 // Constantes para URLs de iconos
 const ICON_URLS = {
-    sunrise: 'https://icons.iconarchive.com/icons/iconsmind/outline/512/Sunrise-icon.png',
-    sunset: 'https://cdn-icons-png.flaticon.com/512/287/287668.png',
-    humidity: 'https://cdn-icons-png.flaticon.com/512/219/219816.png',
-    rain: 'https://cdn-icons-png.flaticon.com/512/116/116251.png',
-    wind: 'https://cdn-icons-png.flaticon.com/512/2011/2011448.png',
+    sunrise: 'https://cdn-icons-png.flaticon.com/512/8098/8098355.png',
+    sunset: 'https://cdn-icons-png.flaticon.com/512/3236/3236899.png',
+    humidity: 'https://static.vecteezy.com/system/resources/thumbnails/011/652/634/small_2x/humidity-3d-render-icon-illustration-png.png',
+    rain: 'https://cdn-icons-png.flaticon.com/512/9443/9443086.png',
+    wind: 'https://cdn-icons-png.freepik.com/512/10461/10461595.png',
     loading: 'https://cdn-icons-png.flaticon.com/512/10484/10484158.png',
     search: 'https://e7.pngegg.com/pngimages/342/516/png-clipart-computer-icons-search-icon-zooming-user-interface-computer-icons-thumbnail.png',
     location: 'https://cdn-icons-png.flaticon.com/512/10831/10831906.png',
@@ -279,11 +279,11 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
                         <p className="font-bold ">: {currentWeather.humidity}%</p>
                     </div>
                     <div className="flex items-center gap-2 mt-2">
-                        <img src={ICON_URLS.rain} alt="Rain" className="w-5 h-5" />
+                        <img src={ICON_URLS.rain} alt="Rain" className="w-8 h-8" />
                         <p className="font-bold " >: {currentWeather.rain_probability}%</p>
                     </div>
                     <div className="flex items-center gap-2 mt-2">
-                        <img src={ICON_URLS.wind} alt="Wind" className="w-5 h-5" />
+                        <img src={ICON_URLS.wind} alt="Wind" className="w-6 h-6" />
                         <p className="font-bold ">: {currentWeather.wind_speed.toFixed(1)}km/h</p>
                     </div>
                 </div>
@@ -310,7 +310,7 @@ const HourlyForecastSection: React.FC<{ hourlyForecast: HourlyForecast[] | undef
                             <th className="border p-2 flex-1 text-center">Hour</th>
                             <th className="border p-2 flex-1 text-center">Temperature</th>
                             <th className="border p-2 flex-1 text-center">Sky</th>
-                            <th className="border p-2 flex-1 text-center">🌧️</th>
+                            <th className="border p-2 flex-1 text-center"><img src={ICON_URLS.rain} alt="Rain" className="w-8 h-8 inline-block mr-2"/></th>
                         </tr>
                     </thead>
                     <tbody className="flex flex-col justify-evenly flex-grow">
@@ -332,7 +332,7 @@ const HourlyForecastSection: React.FC<{ hourlyForecast: HourlyForecast[] | undef
                                             className="inline-block w-8 h-8"
                                         />
                                     </td>
-                                    <td className="border p-2 font-bold flex-1 text-center">{hour.rain_probability}%</td>
+                                    <td className="border p-2 font-bold flex-1 w-8 h-8text-center">{hour.rain_probability}%</td>
                                 </tr>
                             );
                         })}
@@ -366,7 +366,7 @@ const DailyForecastSection: React.FC<{ dailyForecast: DailyForecast[] | undefine
                         />
                         <p className="font-bold ">{day.temperature_max}°C / {day.temperature_min}°C</p>
                         <p className="font-light ">{day.description}</p>
-                        <p className="font-bold ">🌧️: {day.rain_probability}%</p>
+                        <p className="font-bold "><img src={ICON_URLS.rain} alt="Rain" className="w-7 h-7 inline-block mr-2"/>{day.rain_probability}%</p>
                     </div>
                 ))}
             </div>
