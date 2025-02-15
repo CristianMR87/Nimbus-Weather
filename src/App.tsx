@@ -242,14 +242,14 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
     if (!currentWeather) return null;
 
     return (
-        <div className="w-full flex flex-col h-full">
+        <div className="w-full max-w-md flex flex-col">
             <h3 className="text-xl font-bold">Current Weather</h3>
             <div className="mt-1 shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row items-center border border-gray-500 justify-between h-full hover:scale-105 transition-all duration-200"
                 style={{
                     background: 'rgba(255, 255, 255, 0.1)', // Fondo blanco semi-transparente
                 }}>
                 {/* Left Column: Sunrise and Sunset */}
-                <div className="flex flex-col items-start w-1/3">
+                <div className="flex flex-col items-start w-full sm:w-1/3 mb-4 sm:mb-0">
                     <div className="flex items-center gap-2">
                         <img src={ICON_URLS.sunrise} alt="Sunrise" className="w-6 h-6" />
                         <p className="text-lg font-bold">{currentWeather.sunrise}</p>
@@ -261,7 +261,7 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
                 </div>
 
                 {/* Middle Column: Temperature, Icon */}
-                <div className="flex flex-col justify-center items-center w-1/3">
+                <div className="flex flex-col justify-center items-center w-full sm:w-1/3 mb-4 sm:mb-0">
                     <p className="text-4xl font-bold">{currentWeather.temperature}°C</p>
                     <img
                         src={`http://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`}
@@ -269,25 +269,25 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
                         className="w-24 h-24"
                     />
                     {dailyForecast && dailyForecast.length > 0 && (
-                        <p className="font-bold ">
+                        <p className="font-bold">
                             {dailyForecast[0].temperature_max}°C / {dailyForecast[0].temperature_min}°C
                         </p>
                     )}
                 </div>
 
                 {/* Right Column: Wind and Humidity */}
-                <div className="flex flex-col items-end w-1/3">
+                <div className="flex flex-col items-end w-full sm:w-1/3">
                     <div className="flex items-center gap-2 mt-2">
                         <img src={ICON_URLS.humidity} alt="Humidity" className="w-5 h-5" />
-                        <p className="font-bold ">: {currentWeather.humidity}%</p>
+                        <p className="font-bold">: {currentWeather.humidity}%</p>
                     </div>
                     <div className="flex items-center gap-2 mt-2">
                         <img src={ICON_URLS.rain} alt="Rain" className="w-8 h-8" />
-                        <p className="font-bold " >: {currentWeather.rain_probability}%</p>
+                        <p className="font-bold">: {currentWeather.rain_probability}%</p>
                     </div>
                     <div className="flex items-center gap-2 mt-2">
                         <img src={ICON_URLS.wind} alt="Wind" className="w-6 h-6" />
-                        <p className="font-bold ">: {currentWeather.wind_speed.toFixed(1)}km/h</p>
+                        <p className="font-bold">: {currentWeather.wind_speed.toFixed(1)}km/h</p>
                     </div>
                 </div>
             </div>
