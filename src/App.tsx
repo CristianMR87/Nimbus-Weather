@@ -153,8 +153,8 @@ const App: React.FC = () => {
     const dailyForecast = useMemo(() => weatherData?.daily_forecast, [weatherData]);
 
     return (
-        <div className="flex items-center justify-center min-h-screen-200hv">
-            <div className="App p-5 mt-1 mb-1  max-w-screen-lg table-auto border-collapse rounded-xl shadow-2xl relative"
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="App p-5 mt-1 mb-1 min-w-[440px] max-w-screen-lg table-auto border-collapse rounded-xl shadow-2xl relative"
                 style={{
                 backgroundImage: 'url(/images/Fondo.jpg)', // Ruta de la imagen en la carpeta public
                 backgroundSize: 'cover',                       // La imagen cubrirá todo el contenedor
