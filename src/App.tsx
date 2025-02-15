@@ -145,7 +145,7 @@ const App: React.FC = () => {
     const dailyForecast = useMemo(() => weatherData?.daily_forecast, [weatherData]);
 
     return (
-        <div className="App p-5 mt-5 mb-5 mx-auto max-w-screen-lg table-auto border-collapse border border-gray-200 rounded-xl shadow-2xl relative"
+        <div className="App p-5 m-2 max-w-screen-lg table-auto border-collapse border border-gray-200 rounded-xl shadow-2xl relative"
             style={{
             backgroundImage: 'url(/images/Fondo.jpg)', // Ruta de la imagen en la carpeta public
             backgroundSize: 'cover',                       // La imagen cubrirá todo el contenedor
@@ -242,7 +242,7 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
     if (!currentWeather) return null;
 
     return (
-        <div className="w-full max-w-md flex flex-col">
+        <div className="w-full h-full flex flex-col">
             <h3 className="text-xl font-bold">Current Weather</h3>
             <div className="mt-1 shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row items-center border border-gray-500 justify-between h-full hover:scale-105 transition-all duration-200"
                 style={{
