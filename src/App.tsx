@@ -180,7 +180,10 @@ const App: React.FC = () => {
                             onChange={(e) => setCity(e.target.value)}
                             onKeyDown={handleKeyPress}
                             placeholder="Search City or Zip Code"
-                            className="p-2 border rounded pl-10 text-black font-bold pr-16 w-full shadow-2xl"
+                            className="p-1 border rounded pl-10 text-black font-bold pr-10 w-full shadow-2xl"
+                            style={{
+                                background: 'rgba(255, 255, 255, 1)', // Fondo blanco semi-transparente
+                            }}
                         />
                         <button
                             onClick={handleSearch}
@@ -241,7 +244,7 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
     return (
         <div className="w-full flex flex-col h-full">
             <h3 className="text-xl font-bold">Current Weather</h3>
-            <div className="mt-1 shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row items-center border border-gray-400 justify-between h-full hover:scale-105 transition-all duration-200"
+            <div className="mt-1 shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row items-center border border-gray-500 justify-between h-full hover:scale-105 transition-all duration-200"
                 style={{
                     background: 'rgba(255, 255, 255, 0.1)', // Fondo blanco semi-transparente
                 }}>
@@ -301,7 +304,7 @@ const HourlyForecastSection: React.FC<{ hourlyForecast: HourlyForecast[] | undef
             <h3 className="text-xl font-bold "
             style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>Hourly Forecast</h3>
             <div className="h-full flex">
-                <table className="mt-1 shadow-2xl rounded-xl border flex flex-col justify-evenly border-gray-400 w-full hover:scale-105 transition-all duration-200"
+                <table className="mt-1 shadow-2xl rounded-xl border flex flex-col justify-evenly border-gray-500 w-full hover:scale-105 transition-all duration-200"
                     style={{
                         background: 'rgba(255, 255, 255, 0.1)'
                     }}>
