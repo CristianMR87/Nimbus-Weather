@@ -145,7 +145,7 @@ const App: React.FC = () => {
     const dailyForecast = useMemo(() => weatherData?.daily_forecast, [weatherData]);
 
     return (
-        <div className="App p-5 m-2 ml-2 mr-2 mx-auto max-w-screen-lg table-auto border-collapse border border-gray-200 rounded-xl shadow-2xl relative"
+        <div className="App p-5 mt-1 mb-1 mx-auto max-w-screen-lg table-auto border-collapse rounded-xl shadow-2xl relative"
             style={{
             backgroundImage: 'url(/images/Fondo.jpg)', // Ruta de la imagen en la carpeta public
             backgroundSize: 'cover',                       // La imagen cubrirá todo el contenedor
@@ -153,7 +153,7 @@ const App: React.FC = () => {
             }}>
             <button
                 onClick={handleCurrentLocation}
-                className={`font-bold p-2 rounded-full shadow-2xl z-10 flex items-center gap-2 sm:w-auto  sm:mb-0 mb-2 hover:scale-110 transition-all duration-200`}
+                className={`font-bold p-2 rounded-full shadow-2xl z-10 flex items-center gap-2 sm:w-auto border border-gray-900 mb-2 hover:scale-110 transition-all duration-200`}
                 style={{
                     background: 'rgba(50, 50, 50, 0.8)', // Fondo blanco semi-transparente
                 }}
@@ -182,7 +182,7 @@ const App: React.FC = () => {
                             placeholder="Search City or Zip Code"
                             className="p-1 border rounded pl-10 text-black font-bold pr-10 w-full shadow-2xl"
                             style={{
-                                background: 'rgba(255, 255, 255, 1)', // Fondo blanco semi-transparente
+                                background: 'rgba(255, 255, 255, 1)',
                             }}
                         />
                         <button
@@ -261,12 +261,12 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
                 </div>
 
                 {/* Middle Column: Temperature, Icon */}
-                <div className="flex flex-col justify-center items-center w-full sm:w-1/3 mb-4 sm:mb-0">
+                <div className="flex flex-col justify-center items-center w-full sm:w-1/3 sm:mb-0">
                     <p className="text-4xl font-bold">{currentWeather.temperature}°C</p>
                     <img
                         src={`http://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`}
                         alt="Weather Icon"
-                        className="w-24 h-24"
+                        className="w-26 h-26"
                     />
                     {dailyForecast && dailyForecast.length > 0 && (
                         <p className="font-bold">
