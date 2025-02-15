@@ -53,7 +53,7 @@ const ICON_URLS = {
     wind: 'https://cdn-icons-png.flaticon.com/512/2011/2011448.png',
     loading: 'https://cdn-icons-png.flaticon.com/512/10484/10484158.png',
     search: 'https://e7.pngegg.com/pngimages/342/516/png-clipart-computer-icons-search-icon-zooming-user-interface-computer-icons-thumbnail.png',
-    location: 'https://cdn-icons-png.flaticon.com/512/0/619.png',
+    location: 'https://cdn-icons-png.flaticon.com/512/10831/10831906.png',
 };
 
 const App: React.FC = () => {
