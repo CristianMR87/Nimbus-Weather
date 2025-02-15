@@ -145,7 +145,7 @@ const App: React.FC = () => {
     const dailyForecast = useMemo(() => weatherData?.daily_forecast, [weatherData]);
 
     return (
-        <div className="App p-5 mt-5 mx-auto max-w-screen-lg table-auto border-collapse border border-gray-200 rounded-xl shadow-2xl relative"
+        <div className="App p-5 mt-5 mb-5 mx-auto max-w-screen-lg table-auto border-collapse border border-gray-200 rounded-xl shadow-2xl relative"
             style={{
             backgroundImage: 'url(/images/Fondo.jpg)', // Ruta de la imagen en la carpeta public
             backgroundSize: 'cover',                       // La imagen cubrirá todo el contenedor
