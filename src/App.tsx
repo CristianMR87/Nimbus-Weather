@@ -62,6 +62,9 @@ const App: React.FC = () => {
     const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [currentDateTime, setCurrentDateTime] = useState<string>('');
+    const [searchLoading, setSearchLoading] = useState<boolean>(false);
+    const [locationLoading, setLocationLoading] = useState<boolean>(false);
+
 
     const updateDateTime = useCallback(() => {
         const now = new Date();
@@ -84,6 +87,7 @@ const App: React.FC = () => {
 
     const handleSearch = async () => {
         setLoading(true);
+        setSearchLoading(true);
         setError('');
         try {
             const response = await fetch(`https://nimbus-weather-qt7w.onrender.com/weather/${city}`);
@@ -98,7 +102,7 @@ const App: React.FC = () => {
             setError('There was an error making the request');
             setWeatherData(null);
         } finally {
-            setLoading(false);
+            setSearchLoading(false);
         }
     };
 
@@ -109,6 +113,10 @@ const App: React.FC = () => {
     };
 
     const handleCurrentLocation = async () => {
+        setCity('');
+        setLocationLoading(true); 
+        setError('');
+        
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
@@ -128,7 +136,7 @@ const App: React.FC = () => {
                         setError('There was an error making the request');
                         setWeatherData(null);
                     } finally {
-                        setLoading(false);
+                        setLocationLoading(false);
                     }
                 },
                 (error) => {
@@ -145,94 +153,94 @@ const App: React.FC = () => {
     const dailyForecast = useMemo(() => weatherData?.daily_forecast, [weatherData]);
 
     return (
-        <div className="App p-5 mt-1 mb-1 mx-auto max-w-screen-lg table-auto border-collapse rounded-xl shadow-2xl relative"
-            style={{
-            backgroundImage: 'url(/images/Fondo.jpg)', // Ruta de la imagen en la carpeta public
-            backgroundSize: 'cover',                       // La imagen cubrirá todo el contenedor
-            backgroundPosition: 'center',                  // La imagen estará centrada
-            }}>
-            <button
-                onClick={handleCurrentLocation}
-                className={`font-bold p-2 rounded-full shadow-2xl z-10 flex items-center gap-2 sm:w-auto border border-gray-900 mb-2 hover:scale-110 transition-all duration-200`}
+        <div className="flex items-center justify-center min-h-screen-200hv">
+            <div className="App p-5 mt-1 mb-1  max-w-screen-lg table-auto border-collapse rounded-xl shadow-2xl relative"
                 style={{
-                    background: 'rgba(50, 50, 50, 0.8)', // Fondo blanco semi-transparente
-                }}
-                disabled={loading}
-            >
-                {loading ? (
-                    <span className="animate-spin w-6 h-6 inline-block">
-                        <img src={ICON_URLS.loading} alt="Loading" className="w-6 h-6" />
-                    </span>
-                ) : (
-                    <>
-                        <img src={ICON_URLS.location} alt="Current Location" className="w-6 h-6" />
-                        <span>Current Location</span>
-                    </>
+                backgroundImage: 'url(/images/Fondo.jpg)', // Ruta de la imagen en la carpeta public
+                backgroundSize: 'cover',                       // La imagen cubrirá todo el contenedor
+                backgroundPosition: 'center',                  // La imagen estará centrada
+                }}>
+                <button
+                    onClick={handleCurrentLocation}
+                    className={`font-bold p-2 rounded-full shadow-2xl z-10 flex items-center gap-2 sm:w-auto border border-gray-900 mb-2 hover:scale-110 transition-all duration-200`}
+                    style={{background: 'rgba(50, 50, 50, 0.8)'}}
+                    disabled={locationLoading}
+                >
+                    {locationLoading ? (
+                        <span className="animate-spin w-6 h-6 inline-block">
+                            <img src={ICON_URLS.loading} alt="Loading" className="w-6 h-6" />
+                        </span>
+                    ) : (
+                        <>
+                            <img src={ICON_URLS.location} alt="Current Location" className="w-6 h-6" />
+                            <span>Current Location</span>
+                        </>
+                    )}
+                </button>
+
+                <div className="flex justify-center items-center mb-4">
+                    <div className="flex w-full max-w-md gap-4">
+                        <div className="relative w-full">
+                            <input
+                                type="text"
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                                onKeyDown={handleKeyPress}
+                                placeholder="Search City or Zip Code"
+                                className="p-1 border rounded pl-10 text-black font-bold pr-10 w-full shadow-2xl"
+                                style={{
+                                    background: 'rgba(255, 255, 255, 1)',
+                                }}
+                            />
+                            <button
+                                onClick={handleSearch}
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 p-1 hover:text-blue-500 hover:scale-110 transition-all duration-200"
+                                disabled={searchLoading}
+                            >
+                                {searchLoading ? (
+                                    <span className="animate-spin w-6 h-6 inline-block">
+                                        <img src={ICON_URLS.loading} alt="Loading" className="w-6 h-6" />
+                                    </span>
+                                ) : (
+                                    <img src={ICON_URLS.search} alt="Search" className="w-6 h-6" />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {!weatherData && city === '' && !loading && (
+                    <div className="text-center">
+                        <p className=" mt-4 text-center text-2xl font-bold">Welcome to Nimbus Weather!</p>
+                    </div>
                 )}
-            </button>
 
-            <div className="flex justify-center items-center mb-4">
-                <div className="flex w-full max-w-md gap-4">
-                    <div className="relative w-full">
-                        <input
-                            type="text"
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            onKeyDown={handleKeyPress}
-                            placeholder="Search City or Zip Code"
-                            className="p-1 border rounded pl-10 text-black font-bold pr-10 w-full shadow-2xl"
-                            style={{
-                                background: 'rgba(255, 255, 255, 1)',
-                            }}
-                        />
-                        <button
-                            onClick={handleSearch}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 p-1 hover:text-blue-500 hover:scale-110 transition-all duration-200"
-                            disabled={loading}
-                        >
-                            {loading ? (
-                                <span className="animate-spin w-6 h-6 inline-block">
-                                    <img src={ICON_URLS.loading} alt="Loading" className="w-6 h-6" />
-                                </span>
-                            ) : (
-                                <img src={ICON_URLS.search} alt="Search" className="w-6 h-6" />
-                            )}
-                        </button>
-                    </div>
+                {error && <p className="text-red-500 font-bold text-center mt-4">{error}</p>}
+
+                <div className="flex flex-col items-center mt-4">
+                    <h1 className="text-2xl font-bold">{weatherData?.city}</h1>
+                    <p className="">{currentDateTime}</p>
                 </div>
-            </div>
 
-            {!weatherData && city === '' && !loading && (
-                <div className="text-center">
-                    <p className=" mt-4 text-center text-2xl font-bold">Welcome to Nimbus Weather!</p>
-                </div>
-            )}
-
-            {error && <p className="text-red-500 font-bold text-center mt-4">{error}</p>}
-
-            <div className="flex flex-col items-center mt-4">
-                <h1 className="text-2xl font-bold">{weatherData?.city}</h1>
-                <p className="">{currentDateTime}</p>
-            </div>
-
-            {weatherData && (
-                <div className="mt-12">
-                    {/* Current Weather y Hourly Forecast en la misma fila */}
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <div className="w-full sm:w-1/2">
-                            <CurrentWeatherSection currentWeather={currentWeather} dailyForecast={dailyForecast} />
+                {weatherData && (
+                    <div className="mt-12">
+                        {/* Current Weather y Hourly Forecast en la misma fila */}
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="w-full sm:w-1/2">
+                                <CurrentWeatherSection currentWeather={currentWeather} dailyForecast={dailyForecast} />
+                            </div>
+                            <div className="w-full sm:w-1/2">
+                                <HourlyForecastSection hourlyForecast={hourlyForecast} />
+                            </div>
                         </div>
-                        <div className="w-full sm:w-1/2">
-                            <HourlyForecastSection hourlyForecast={hourlyForecast} />
+
+                        {/* Daily Forecast en una fila separada */}
+                        <div className="mt-8">
+                            <DailyForecastSection dailyForecast={dailyForecast} />
                         </div>
                     </div>
-
-                    {/* Daily Forecast en una fila separada */}
-                    <div className="mt-8">
-                        <DailyForecastSection dailyForecast={dailyForecast} />
-                    </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 };
