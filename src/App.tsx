@@ -44,6 +44,7 @@ interface WeatherData {
     daily_forecast: DailyForecast[];
 }
 
+// Constantes para URLs de iconos
 const ICON_URLS = {
     sunrise: 'https://cdn-icons-png.flaticon.com/512/8098/8098355.png',
     sunset: 'https://cdn-icons-png.flaticon.com/512/3236/3236899.png',
@@ -88,6 +89,8 @@ const App: React.FC = () => {
         setLoading(true);
         setSearchLoading(true);
         setError('');
+        setLocationLoading(false);
+
         try {
             const response = await fetch(`https://nimbus-weather-qt7w.onrender.com/weather/${city}`);
             if (response.ok) {
@@ -95,11 +98,9 @@ const App: React.FC = () => {
                 setWeatherData(data);
             } else {
                 setError('You must enter a city or Zip code.');
-                setWeatherData(null);
             }
         } catch (err) {
             setError('There was an error making the request');
-            setWeatherData(null);
         } finally {
             setSearchLoading(false);
         }
@@ -115,6 +116,8 @@ const App: React.FC = () => {
         setCity('');
         setLocationLoading(true); 
         setError('');
+        setSearchLoading(false);
+
         
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -129,11 +132,10 @@ const App: React.FC = () => {
                             setWeatherData(data);
                         } else {
                             setError('Could not fetch weather based on location.');
-                            setWeatherData(null);
                         }
                     } catch (err) {
                         setError('There was an error making the request');
-                        setWeatherData(null);
+
                     } finally {
                         setLocationLoading(false);
                     }
@@ -153,15 +155,15 @@ const App: React.FC = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen">
-            <div className="App p-5 mt-1 mb-1 min-w-[440px] max-w-screen-lg table-auto border-collapse rounded-xl shadow-2xl relative"
+            <div className="App p-5 mt-1 mb-1 max-w min-w-[330px] max-w-screen-lg table-auto border-collapse rounded-xl shadow-2xl relative"
                 style={{
                 backgroundImage: 'url(/images/Fondo.jpg)', 
-                backgroundSize: 'cover', 
-                backgroundPosition: 'center',  
+                backgroundSize: 'cover',                       
+                backgroundPosition: 'center',                  
                 }}>
                 <button
                     onClick={handleCurrentLocation}
-                    className={`font-bold p-2 rounded-full shadow-2xl z-10 flex items-center gap-2 sm:w-auto border border-gray-900 mb-2 hover:scale-110 transition-all duration-200`}
+                    className={`font-bold p-1.5 text-sm rounded-full z-10 flex items-center gap-1.5 sm:w-auto border border-gray-900 mb-2 hover:scale-110 transition-all duration-200`}
                     style={{background: 'rgba(50, 50, 50, 0.8)'}}
                     disabled={locationLoading}
                 >
@@ -171,7 +173,7 @@ const App: React.FC = () => {
                         </span>
                     ) : (
                         <>
-                            <img src={ICON_URLS.location} alt="Current Location" className="w-6 h-6" />
+                            <img src={ICON_URLS.location} alt="Current Location" className="w-5 h-5" />
                             <span>Current Location</span>
                         </>
                     )}
@@ -223,6 +225,7 @@ const App: React.FC = () => {
 
                 {weatherData && (
                     <div className="mt-12">
+                        {/* Current Weather y Hourly Forecast en la misma fila */}
                         <div className="flex flex-col sm:flex-row gap-4">
                             <div className="w-full sm:w-1/2">
                                 <CurrentWeatherSection currentWeather={currentWeather} dailyForecast={dailyForecast} />
@@ -232,6 +235,7 @@ const App: React.FC = () => {
                             </div>
                         </div>
 
+                        {/* Daily Forecast en una fila separada */}
                         <div className="mt-8">
                             <DailyForecastSection dailyForecast={dailyForecast} />
                         </div>
@@ -242,18 +246,18 @@ const App: React.FC = () => {
     );
 };
 
-// Clima actual
+// Componente para mostrar el clima actual
 const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefined, dailyForecast: DailyForecast[] | undefined }> = ({ currentWeather, dailyForecast }) => {
     if (!currentWeather) return null;
 
     return (
         <div className="w-full h-full flex flex-col">
             <h3 className="text-xl font-bold">Current Weather</h3>
-            <div className="mt-1 shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row items-center border border-gray-500 justify-between h-full hover:scale-105 transition-all duration-200"
+            <div className="mt-2 shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row items-center border border-gray-500 justify-between h-full hover:scale-105 transition-all duration-200"
                 style={{
-                    background: 'rgba(255, 255, 255, 0.1)', 
+                    background: 'rgba(255, 255, 255, 0.1)', // Fondo blanco semi-transparente
                 }}>
-                {/* Columna izquierda (amanecer y atardecer) */}
+                {/* Left Column: Sunrise and Sunset */}
                 <div className="flex flex-col items-start w-full sm:w-1/3 mb-4 sm:mb-0">
                     <div className="flex items-center gap-2">
                         <img src={ICON_URLS.sunrise} alt="Sunrise" className="w-6 h-6" />
@@ -265,7 +269,7 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
                     </div>
                 </div>
 
-                {/* Columna central, temp e icono */}
+                {/* Middle Column: Temperature, Icon */}
                 <div className="flex flex-col justify-center items-center w-full sm:w-1/3 sm:mb-0">
                     <p className="text-4xl font-bold">{currentWeather.temperature}°C</p>
                     <img
@@ -280,7 +284,7 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
                     )}
                 </div>
 
-                {/* Columna derecha (viento, humedad, prob lluvia) */}
+                {/* Right Column: Wind and Humidity */}
                 <div className="flex flex-col items-end w-full sm:w-1/3">
                     <div className="flex items-center gap-2 mt-2">
                         <img src={ICON_URLS.humidity} alt="Humidity" className="w-5 h-5" />
@@ -300,25 +304,28 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
     );
 };
 
-// Pronóstico por horas
+// Componente para mostrar el pronóstico por horas
 const HourlyForecastSection: React.FC<{ hourlyForecast: HourlyForecast[] | undefined }> = ({ hourlyForecast }) => {
     if (!hourlyForecast) return null;
 
     return (
         <div className="w-full flex flex-col h-full">
-            <h3 className="text-xl font-bold "
-            style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>Hourly Forecast</h3>
+            <h3 className="text-xl font-bold" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+                Hourly Forecast
+            </h3>
             <div className="h-full flex">
-                <table className="mt-1 shadow-2xl rounded-xl border flex flex-col justify-evenly border-gray-500 w-full hover:scale-105 transition-all duration-200"
-                    style={{
-                        background: 'rgba(255, 255, 255, 0.1)'
-                    }}>
+                <table
+                    className="mt-2 shadow-2xl rounded-xl border flex flex-col justify-evenly border-gray-500 w-full hover:scale-105 transition-all duration-200"
+                    style={{ background: 'rgba(255, 255, 255, 0.1)' }}
+                >
                     <thead>
                         <tr className="flex justify-between">
-                            <th className="border p-2 flex-1 text-center">Hour</th>
-                            <th className="border p-2 flex-1 text-center">Temperature</th>
-                            <th className="border p-2 flex-1 text-center">Sky</th>
-                            <th className="border p-2 flex-1 text-center"><img src={ICON_URLS.rain} alt="Rain" className="w-8 h-8 inline-block mr-2"/></th>
+                            <th className="border p-2 flex-1 text-center text-sm sm:text-base min-w-[80px]">Hour</th>
+                            <th className="border p-2 flex-1 text-center text-sm sm:text-base min-w-[80px]">Temperature</th>
+                            <th className="border p-2 flex-1 text-center text-sm sm:text-base min-w-[80px]">Sky</th>
+                            <th className="border p-2 flex-1 text-center text-sm sm:text-base min-w-[80px]">
+                                <img src={ICON_URLS.rain} alt="Rain" className="w-6 h-6 sm:w-8 sm:h-8 inline-block mr-2" />
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="flex flex-col justify-evenly flex-grow">
@@ -326,21 +333,25 @@ const HourlyForecastSection: React.FC<{ hourlyForecast: HourlyForecast[] | undef
                             const hourDate = new Date(hour.time);
                             const formattedTime = hourDate.toLocaleTimeString([], {
                                 hour: '2-digit',
-                                minute: '2-digit'
+                                minute: '2-digit',
                             });
     
                             return (
                                 <tr key={index} className="flex justify-between items-center">
-                                    <td className="border p-2 flex-1 text-center">{formattedTime}</td>
-                                    <td className="border p-2 flex-1 text-center">{hour.temperature}°C</td>
+                                    <td className="border p-2 flex-1 text-center text-sm sm:text-base">{formattedTime}</td>
+                                    <td className="border p-2 flex-1 text-center text-sm sm:text-base">
+                                        {hour.temperature}°C
+                                    </td>
                                     <td className="border p-2 flex-1 text-center">
                                         <img
                                             src={`http://openweathermap.org/img/wn/${hour.icon}@2x.png`}
                                             alt={hour.description}
-                                            className="inline-block w-8 h-8"
+                                            className="inline-block w-6 h-6 sm:w-8 sm:h-8"
                                         />
                                     </td>
-                                    <td className="border p-2 font-bold flex-1 w-8 h-8text-center">{hour.rain_probability}%</td>
+                                    <td className="border p-2 flex-1 text-center text-sm sm:text-base font-bold">
+                                        {hour.rain_probability}%
+                                    </td>
                                 </tr>
                             );
                         })}
@@ -351,18 +362,18 @@ const HourlyForecastSection: React.FC<{ hourlyForecast: HourlyForecast[] | undef
     );
 };
 
-// Pronóstico de los próximos días
+// Componente para mostrar el pronóstico de los próximos días
 const DailyForecastSection: React.FC<{ dailyForecast: DailyForecast[] | undefined }> = ({ dailyForecast }) => {
     if (!dailyForecast) return null;
 
     return (
         <>
             <h3 className="text-xl text-center  font-bold mt-5">Next 5 Days Forecast</h3>
-            <div className="min-w-[300px] mt-1 max-w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="min-w-[300px] mt-2 max-w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                 {dailyForecast.map((day, index) => (
                     <div key={index} className="shadow-2xl border border-gray-400 rounded-xl p-4 text-center hover:scale-110 transition-all duration-200"
                     style={{
-                        background: 'rgba(255, 255, 255, 0.1)',
+                        background: 'rgba(255, 255, 255, 0.1)', // Fondo blanco semi-transparente
                     }}>
                         <p className="font-bold ">
                             {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
