@@ -5,7 +5,7 @@ from datetime import datetime, timezone, timedelta
 
 
 app = Flask(__name__)
-CORS(app, origins={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Clave API de OpenWeather
 api_key = '70529b5640e2a185b9885cb8b938002a'
@@ -17,9 +17,9 @@ def convert_wind_speed_to_kmh(wind_speed_mps):
 def calculate_rain_probability(rain_mm):
     """Calcula la probabilidad de lluvia en porcentaje basándose en la cantidad de lluvia (mm)."""
     if rain_mm > 0:
-        # Mapea la cantidad de lluvia a un porcentaje (esto es solo un ejemplo, ajusta según tus necesidades)
-        return min(round(rain_mm * 100), 100)  # Asegúrate de que no supere el 100%
-    return 0  # Si no hay lluvia
+        # Mapea la cantidad de lluvia a un porcentajes
+        return min(round(rain_mm * 100), 100)  # No debe superar el 100%
+    return 0 
 
 @app.route('/weather/<city>', methods=['GET'])
 def get_weather_by_city(city):
@@ -51,7 +51,7 @@ def get_weather_by_city(city):
             "temperature": round(current_data["main"]["temp"]),
             "sunrise": datetime.fromtimestamp(sunrise, tz=timezone.utc).strftime('%H:%M') if sunrise else "No disponible",
             "sunset": datetime.fromtimestamp(sunset, tz=timezone.utc).strftime('%H:%M') if sunset else "No disponible",
-            "wind_speed": wind_speed_kmh,  # Usamos la velocidad en km/h aquí
+            "wind_speed": wind_speed_kmh,
             "humidity": current_data["main"]["humidity"],
             "rain_probability": calculate_rain_probability(current_data.get('rain', {}).get('1h', 0)),  # Usamos la nueva función
             "icon": current_data["weather"][0]["icon"]
@@ -84,7 +84,7 @@ def get_weather_by_city(city):
                     'temperature': [],
                     'description': item['weather'][0]['description'],
                     'icon': item['weather'][0]['icon'],
-                    'rain_probability': 0  # Inicializar la probabilidad de lluvia
+                    'rain_probability': 0 
                 }
 
             daily_forecast[date]['temperature'].append(item['main']['temp'])
@@ -106,7 +106,7 @@ def get_weather_by_city(city):
                 "temperature_min": round(min_temp),
                 "description": details['description'],
                 "icon": details['icon'],
-                "rain_probability": calculate_rain_probability(details['rain_probability'])  # Usamos la nueva función
+                "rain_probability": calculate_rain_probability(details['rain_probability'])
             })
 
         # Filtrar los próximos 5 días después de hoy
@@ -118,9 +118,9 @@ def get_weather_by_city(city):
         return jsonify({
             "city": city_name,
             "current_weather": current_weather,
-            "forecast": today_forecast,  # Predicción general del día de hoy
-            "hourly_forecast": hourly_forecast,  # Predicciones horarias
-            "daily_forecast": next_five_days_forecast  # Predicción extendida para los próximos días
+            "forecast": today_forecast, 
+            "hourly_forecast": hourly_forecast, 
+            "daily_forecast": next_five_days_forecast 
         })
 
     except Exception as e:

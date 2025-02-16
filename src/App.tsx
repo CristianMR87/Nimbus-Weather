@@ -44,7 +44,6 @@ interface WeatherData {
     daily_forecast: DailyForecast[];
 }
 
-// Constantes para URLs de iconos
 const ICON_URLS = {
     sunrise: 'https://cdn-icons-png.flaticon.com/512/8098/8098355.png',
     sunset: 'https://cdn-icons-png.flaticon.com/512/3236/3236899.png',
@@ -156,9 +155,9 @@ const App: React.FC = () => {
         <div className="flex items-center justify-center min-h-screen">
             <div className="App p-5 mt-1 mb-1 min-w-[440px] max-w-screen-lg table-auto border-collapse rounded-xl shadow-2xl relative"
                 style={{
-                backgroundImage: 'url(/images/Fondo.jpg)', // Ruta de la imagen en la carpeta public
-                backgroundSize: 'cover',                       // La imagen cubrirá todo el contenedor
-                backgroundPosition: 'center',                  // La imagen estará centrada
+                backgroundImage: 'url(/images/Fondo.jpg)', 
+                backgroundSize: 'cover', 
+                backgroundPosition: 'center',  
                 }}>
                 <button
                     onClick={handleCurrentLocation}
@@ -224,7 +223,6 @@ const App: React.FC = () => {
 
                 {weatherData && (
                     <div className="mt-12">
-                        {/* Current Weather y Hourly Forecast en la misma fila */}
                         <div className="flex flex-col sm:flex-row gap-4">
                             <div className="w-full sm:w-1/2">
                                 <CurrentWeatherSection currentWeather={currentWeather} dailyForecast={dailyForecast} />
@@ -234,7 +232,6 @@ const App: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Daily Forecast en una fila separada */}
                         <div className="mt-8">
                             <DailyForecastSection dailyForecast={dailyForecast} />
                         </div>
@@ -245,7 +242,7 @@ const App: React.FC = () => {
     );
 };
 
-// Componente para mostrar el clima actual
+// Clima actual
 const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefined, dailyForecast: DailyForecast[] | undefined }> = ({ currentWeather, dailyForecast }) => {
     if (!currentWeather) return null;
 
@@ -254,9 +251,9 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
             <h3 className="text-xl font-bold">Current Weather</h3>
             <div className="mt-1 shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row items-center border border-gray-500 justify-between h-full hover:scale-105 transition-all duration-200"
                 style={{
-                    background: 'rgba(255, 255, 255, 0.1)', // Fondo blanco semi-transparente
+                    background: 'rgba(255, 255, 255, 0.1)', 
                 }}>
-                {/* Left Column: Sunrise and Sunset */}
+                {/* Columna izquierda (amanecer y atardecer) */}
                 <div className="flex flex-col items-start w-full sm:w-1/3 mb-4 sm:mb-0">
                     <div className="flex items-center gap-2">
                         <img src={ICON_URLS.sunrise} alt="Sunrise" className="w-6 h-6" />
@@ -268,7 +265,7 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
                     </div>
                 </div>
 
-                {/* Middle Column: Temperature, Icon */}
+                {/* Columna central, temp e icono */}
                 <div className="flex flex-col justify-center items-center w-full sm:w-1/3 sm:mb-0">
                     <p className="text-4xl font-bold">{currentWeather.temperature}°C</p>
                     <img
@@ -283,7 +280,7 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
                     )}
                 </div>
 
-                {/* Right Column: Wind and Humidity */}
+                {/* Columna derecha (viento, humedad, prob lluvia) */}
                 <div className="flex flex-col items-end w-full sm:w-1/3">
                     <div className="flex items-center gap-2 mt-2">
                         <img src={ICON_URLS.humidity} alt="Humidity" className="w-5 h-5" />
@@ -303,7 +300,7 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
     );
 };
 
-// Componente para mostrar el pronóstico por horas
+// Pronóstico por horas
 const HourlyForecastSection: React.FC<{ hourlyForecast: HourlyForecast[] | undefined }> = ({ hourlyForecast }) => {
     if (!hourlyForecast) return null;
 
@@ -354,7 +351,7 @@ const HourlyForecastSection: React.FC<{ hourlyForecast: HourlyForecast[] | undef
     );
 };
 
-// Componente para mostrar el pronóstico de los próximos días
+// Pronóstico de los próximos días
 const DailyForecastSection: React.FC<{ dailyForecast: DailyForecast[] | undefined }> = ({ dailyForecast }) => {
     if (!dailyForecast) return null;
 
@@ -365,7 +362,7 @@ const DailyForecastSection: React.FC<{ dailyForecast: DailyForecast[] | undefine
                 {dailyForecast.map((day, index) => (
                     <div key={index} className="shadow-2xl border border-gray-400 rounded-xl p-4 text-center hover:scale-110 transition-all duration-200"
                     style={{
-                        background: 'rgba(255, 255, 255, 0.1)', // Fondo blanco semi-transparente
+                        background: 'rgba(255, 255, 255, 0.1)',
                     }}>
                         <p className="font-bold ">
                             {new Date(day.date).toLocaleDateString('en-EN', { weekday: 'short', day: 'numeric', month: 'short' })}
