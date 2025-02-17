@@ -154,8 +154,8 @@ const App: React.FC = () => {
     const dailyForecast = useMemo(() => weatherData?.daily_forecast, [weatherData]);
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="App p-5 mt-1 mb-1 max-w min-w-[330px] max-w-screen-lg table-auto border-collapse rounded-xl shadow-2xl relative"
+        <div className="flex justify-center items-start min-h-screen">
+            <div className="App p-5 mt-1 mb-1 ml-1 mr-1 sm:w-full min-w-[330px] max-w-screen-lg border-collapse rounded-xl shadow-2xl relative "
                 style={{
                 backgroundImage: 'url(/images/Fondo.jpg)', 
                 backgroundSize: 'cover',                       
@@ -163,7 +163,7 @@ const App: React.FC = () => {
                 }}>
                 <button
                     onClick={handleCurrentLocation}
-                    className={`font-bold p-1.5 text-sm rounded-full z-10 flex items-center gap-1.5 sm:w-auto border border-gray-900 mb-2 hover:scale-110 transition-all duration-200`}
+                    className={`font-bold p-1.5 text-sm rounded-full flex items-center gap-1.5 border border-gray-900 mb-2 hover:scale-110 transition-transform duration-300 ease-in-out`}
                     style={{background: 'rgba(50, 50, 50, 0.8)'}}
                     disabled={locationLoading}
                 >
@@ -173,7 +173,7 @@ const App: React.FC = () => {
                         </span>
                     ) : (
                         <>
-                            <img src={ICON_URLS.location} alt="Current Location" className="w-5 h-5" />
+                            <img src={ICON_URLS.location} alt="Current Location" className="w-6 h-6" />
                             <span>Current Location</span>
                         </>
                     )}
@@ -195,7 +195,7 @@ const App: React.FC = () => {
                             />
                             <button
                                 onClick={handleSearch}
-                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 p-1 hover:text-blue-500 hover:scale-110 transition-all duration-200"
+                                className="flex justify-center items-center absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 p-1 hover:text-blue-500 hover:scale-110 transition-transform duration-300 ease-in-out"
                                 disabled={searchLoading}
                             >
                                 {searchLoading ? (
@@ -253,7 +253,7 @@ const CurrentWeatherSection: React.FC<{ currentWeather: CurrentWeather | undefin
     return (
         <div className="w-full h-full flex flex-col">
             <h3 className="text-xl font-bold">Current Weather</h3>
-            <div className="mt-2 shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row items-center border border-gray-500 justify-between h-full hover:scale-105 transition-all duration-200"
+            <div className="mt-2 shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row items-center border border-gray-500 justify-between h-full hover:scale-105 transition-transform duration-300 ease-in-out"
                 style={{
                     background: 'rgba(255, 255, 255, 0.1)', // Fondo blanco semi-transparente
                 }}>
@@ -315,7 +315,7 @@ const HourlyForecastSection: React.FC<{ hourlyForecast: HourlyForecast[] | undef
             </h3>
             <div className="h-full flex">
                 <table
-                    className="mt-2 shadow-2xl rounded-xl border flex flex-col justify-evenly border-gray-500 w-full hover:scale-105 transition-all duration-200"
+                    className="mt-2 shadow-2xl rounded-xl border flex flex-col justify-evenly border-gray-500 w-full hover:scale-105 transition-transform duration-300 ease-in-out"
                     style={{ background: 'rgba(255, 255, 255, 0.1)' }}
                 >
                     <thead>
@@ -371,7 +371,7 @@ const DailyForecastSection: React.FC<{ dailyForecast: DailyForecast[] | undefine
             <h3 className="text-xl text-center  font-bold mt-5">Next 5 Days Forecast</h3>
             <div className="min-w-[300px] mt-2 max-w-full h-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                 {dailyForecast.map((day, index) => (
-                    <div key={index} className="shadow-2xl border border-gray-400 rounded-xl p-4 text-center hover:scale-110 transition-all duration-200"
+                    <div key={index} className="shadow-2xl border border-gray-400 rounded-xl p-4 text-center hover:scale-110 transition-transform duration-300 ease-in-out"
                     style={{
                         background: 'rgba(255, 255, 255, 0.1)', // Fondo blanco semi-transparente
                     }}>
