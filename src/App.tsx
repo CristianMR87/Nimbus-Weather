@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
-// Interfaces (definiciones de tipos)
 interface Forecast {
     date: string;
     temperature: number;
