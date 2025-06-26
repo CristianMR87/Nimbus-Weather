@@ -1,31 +1,31 @@
-## English
+### English
 
 Nimbus Weather
 
 This is a web application for checking the weather forecast. It uses React with TypeScript on the frontend and Python with Flask on the backend to fetch weather data. The app is fully responsive, styled using Tailwind CSS.
 
-Features
+## 🧩 Features
 
-    Current weather and 5-day forecast.
-    Uses the user's current location to display the forecast.
-    Search functionality by city or zip code.
-    Modern and responsive user interface.
+    - Current weather and 5-day forecast.
+    - Uses the user's current location to display the forecast.
+    - Search functionality by city or zip code.
+    - Modern and responsive user interface.
 
-Technologies
+## 🚀 Technologies Used
 
     Frontend
 
-        React: JavaScript library for building user interfaces.
-        TypeScript: A superset of JavaScript that adds static types to improve code quality.
-        Tailwind CSS: Utility-first CSS framework for rapidly building responsive designs.
+        - React
+        - TypeScript
+        - Tailwind CSS
 
     Backend
 
-        Python: Programming language for handling backend logic.
-        Flask: Micro-framework for building web applications in Python.
-        OpenWeather API: External API used to fetch weather data.
+        - Python.
+        - Flask.
+        - OpenWeather API.
 
-Installation
+## 💻 Installation
 
     Backend (Python + Flask)
 
@@ -40,13 +40,13 @@ Installation
         4.- Install the dependencies: pip install -r requirements.txt
 
         5.- Set up environment variables for your OpenWeather API_KEY (you can do this in a .env file):
-            OPENWEATHER_API_KEY=your_api_key
+            api_key=your_api_key
 
         6.-Start the Flask server: python app.py
 
         --> "The backend should be running at http://localhost:5000."
 
-Frontend (React + Tailwind CSS)
+    Frontend (React + Tailwind CSS)
 
         1.- Navigate to the root directory of the project.
 
@@ -56,7 +56,7 @@ Frontend (React + Tailwind CSS)
 
         --> "The frontend should be available at http://localhost:3000."
 
-Contributing
+## ⚙️ Contributing
 
     Fork the repository.
     Create a branch for your changes: git checkout -b feature/new-feature.
@@ -64,39 +64,39 @@ Contributing
     Push to the branch: git push origin feature/new-feature.
     Open a Pull Request.
 
-License
+## 🌱 License
 
     This project is licensed under the MIT License.
 
-## Español
+### Español
 
 Nimbus Weather
 
 Este es un proyecto de aplicación web para consultar el pronóstico del tiempo. Utiliza React con TypeScript en el frontend y Python con Flask en el backend para la obtención de datos meteorológicos. La aplicación es completamente responsiva, utilizando Tailwind CSS para el diseño y estilos.
 
-Características
+## 🧩 Características
 
     Consulta del pronóstico del tiempo actual y para los próximos 5 días.
     Utiliza la ubicación actual del usuario para mostrar el pronóstico.
     Función de búsqueda por ciudad o código postal.
     Interfaz de usuario moderna y responsiva.
 
-Tecnologías
+## 🚀 Tecnologías
 
     Frontend
 
-        React: Biblioteca de JavaScript para construir interfaces de usuario.
-        TypeScript: Superset de JavaScript para añadir tipado estático y mejorar la calidad del código.
-        Tailwind CSS: Framework de CSS para diseñar interfaces de manera rápida y responsiva.
+        - React.
+        - TypeScript.
+        - Tailwind CSS.
 
     Backend
 
-        Python: Lenguaje de programación para manejar la lógica del backend.
-        Flask: Micro-framework para la creación de aplicaciones web en Python.
-        OpenWeather API: API externa utilizada para obtener datos meteorológicos.
+        - Python.
+        - Flask.
+        - OpenWeather API.
 
 
-Instalación
+## 💻 Instalación
 
     Backend (Python + Flask)
         1.- Clona el repositorio: git clone https://github.com/tu_usuario/tu_repositorio.git
@@ -126,14 +126,14 @@ Instalación
 
         --> "El frontend debería estar disponible en http://localhost:3000."
 
-Contribuir
+## ⚙️ Contribuir
 
-    Fork el repositorio.
+    Fork del repositorio.
     Crea una rama con tus cambios: git checkout -b feature/nueva-funcionalidad.
     Haz commit de tus cambios: git commit -am 'Agregada nueva funcionalidad'.
     Push a la rama: git push origin feature/nueva-funcionalidad.
     Abre un Pull Request.
 
-Licencia
+## 🌱 Licencia
 
-    ste proyecto está bajo la licencia MIT.
+    Este proyecto está bajo la licencia MIT.
