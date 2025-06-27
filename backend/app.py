@@ -76,7 +76,7 @@ def get_weather_by_city(city):
         # Daily forecast (max/min temperatures, icon, and rain probability)
         daily_forecast = {}
         for item in forecast_data['list']:
-            date = item['dt_txt'].split()[0]  # Extract date (yyyy-mm-dd)
+            date = item['dt_txt'].split()[0]  
 
             if date not in daily_forecast:
                 daily_forecast[date] = {

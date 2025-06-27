@@ -45,7 +45,7 @@ const HourlyForecastSection: React.FC<HourlyForecastSectionProps> = ({ hourlyFor
                                 hour: '2-digit',
                                 minute: '2-digit',
                             });
-    
+
                             return (
                                 <tr key={index} className="flex justify-between items-center">
                                     <td className="border p-2 flex-1 text-center text-sm sm:text-base">{formattedTime}</td>
