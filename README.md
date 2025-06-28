@@ -72,7 +72,7 @@ This is a web application for checking the weather forecast. It uses React with 
 
 Nimbus Weather
 
-Este es un proyecto de aplicación web para consultar el pronóstico del tiempo. Utiliza React con TypeScript en el frontend y Python con Flask en el backend para la obtención de datos meteorológicos. La aplicación es completamente responsiva, utilizando Tailwind CSS para el diseño y estilos.
+Proyecto de aplicación web para consultar el pronóstico del tiempo. Utiliza React con TypeScript en el frontend y Python con Flask en el backend para la obtención de datos meteorológicos. La aplicación es completamente responsiva, utilizando Tailwind CSS para el diseño y estilos.
 
 ## 🧩 Características
 
